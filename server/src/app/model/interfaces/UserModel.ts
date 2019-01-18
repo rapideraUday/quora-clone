@@ -3,9 +3,13 @@ import mongoose = require('mongoose');
 interface UserModel extends mongoose.Document{
 
     id?: string;
-    name: string;
-    marks: number;
-    section: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    token:string;
+    salt:string;
+
 }
 
 export = UserModel;

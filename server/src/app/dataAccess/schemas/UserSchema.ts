@@ -9,17 +9,27 @@ class UserSchema {
                 type: String,
                 required: false
             },
-            section: {
+            firstName: {
                 type: String,
                 required: true
             },
-            name: {
+            lastName: {
                 type: String,
                 required: true
             },
-            marks: {
-                type: Number,
+            email: {
+                type: String,
                 required: true
+            },
+            password: {
+                type: String,
+                required: true
+            },
+            token:{
+                type:String,
+            },
+            salt:{
+                type:String
             }
         })
     }

@@ -7,16 +7,19 @@ class UserModel{
         this._userModel = userModel;
     }
 
-    get name(): string{
-        return this._userModel.name;
+    get firstName(): string{
+        return this._userModel.firstName;
     }
 
-    get section(): string{
-        return this._userModel.section;
+    get lastName(): string{
+        return this._userModel.lastName;
     }
 
-    get marks(): number{
-        return this._userModel.marks;
+    get email(): string{
+        return this._userModel.email;
+    }
+    get password(): string{
+        return this._userModel.password;
     }
 }
 
