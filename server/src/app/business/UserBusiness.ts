@@ -1,4 +1,6 @@
 const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
+const async = require('async');
 
 import UserRepository = require('../repository/UserRepository');
 import IUserBusiness = require('../business/interfaces/UserBusiness');
@@ -25,18 +27,44 @@ class UserBusiness implements IUserBusiness {
         this._UserRepository.create(user, callback);
     }
 
-    login(email: string, password: string, callback: (error: any, result: any) => void){
-        let isMatch:Boolean = false;
-        this._UserRepository.findUserByEmail(email,(error,result) => {
-            if(result){
-                const userPassword:Ihash = this.hashPasswordWithSalt(password,result.salt);
-                if(result.password === userPassword.password){
-                    isMatch = true;
-                    return callback(null,isMatch);
-                }
-                return callback('Wrong Password',null);
+    login(email: string, password: string, callback: (error: any, result: any) => void) {
+        async.waterfall([
+            (done) => {
+                this._UserRepository.findUserByEmail(email, (error, result) => {                    
+                    if (result) {
+                        const userPassword: Ihash = this.hashPasswordWithSalt(password, result.salt);
+                        if (result.password === userPassword.password) {
+                            const payload = { _id: result._id };
+                            const options = { expiresIn: '1d', issuer: 'quora-clone' };
+                            const secret = process.env.JWT_SECRET;
+                            const token = jwt.sign(payload, secret, options);
+                            const userDetail: IUserModel = {
+                                _id: result._id,
+                                firstName: result.firstName,
+                                lastName: result.lastName,
+                                email: result.email,
+                                password: result.password,
+                                salt: result.salt,
+                                token: token
+                            }
+                            return done(null, userDetail);
+                        }
+                        return done('Wrong Password', null);
+                    }
+                    return done("User not found", null);
+                });
+            },
+            (userDetail, done)=> {
+                this._UserRepository.update(userDetail._id, userDetail, (error, result) => {
+                    if (error) {
+                        return done('Internal Server Error', null);
+                    }
+                    return done(null, userDetail.token);
+                })
             }
-            return callback("User not found", null);
+        ], (err, result) =>{
+            if (err) return callback(err, null);
+            return callback(null, result);
         });
     }
 
