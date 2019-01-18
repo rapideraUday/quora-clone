@@ -7,7 +7,7 @@ var app = express();
 class BaseRoutes {
 
     get routes() {
-        app.use("/", new UserRoutes().routes);
+        app.use("/api/v1", new UserRoutes().routes);
         return app;
     }
 }
