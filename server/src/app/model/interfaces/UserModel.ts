@@ -2,7 +2,7 @@ import mongoose = require('mongoose');
 
 interface UserModel extends mongoose.Document{
 
-    id?: string;
+    _id?: string;
     firstName: string;
     lastName: string;
     email: string;

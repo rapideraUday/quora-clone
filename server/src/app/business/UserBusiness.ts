@@ -25,6 +25,21 @@ class UserBusiness implements IUserBusiness {
         this._UserRepository.create(user, callback);
     }
 
+    login(email: string, password: string, callback: (error: any, result: any) => void){
+        let isMatch:Boolean = false;
+        this._UserRepository.findUserByEmail(email,(error,result) => {
+            if(result){
+                const userPassword:Ihash = this.hashPasswordWithSalt(password,result.salt);
+                if(result.password === userPassword.password){
+                    isMatch = true;
+                    return callback(null,isMatch);
+                }
+                return callback('Wrong Password',null);
+            }
+            return callback("User not found", null);
+        });
+    }
+
     retrieve(callback: (error: any, result: any) => void) {
         this._UserRepository.retrieve(callback);
     }
