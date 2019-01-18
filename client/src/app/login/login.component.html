@@ -1,11 +1,11 @@
-<div fxLayout="row" fxLayoutAlign="center center" class="background-img">
+<div fxLayout="row" layout-wrap fxLayoutAlign="center center" class="background-img">
   <div flex>
     <mat-card class="matcard-size">
-      <div fxLayout="column" fxLayoutGap="30px">
+      <div fxLayout="column" fxLayoutGap="25px">
         <div fxFlex="10"></div>
 
         <div fxFlex="20" fxLayout="row" fxLayoutAlign="center center">
-          <img src="../../assets/images/quora.png" width="224px" height="82px">
+          <img src="../../assets/images/quora.png" width="224px" height="63px">
         </div>
         <div fxFlex="10" fxLayout="row" fxLayoutAlign="center center" class="tagline">
           A place to share knowledge and better understand the world.
@@ -15,20 +15,120 @@
 
         <div fxFlex="40">
           <div fxLayout="row">
-            <div fxFlex="10"></div>
+            <div fxFlex="5"></div>
             <div fxFlex="40">
-              <div fxLayout="column" fxLayoutGap="10px">
+              <div fxLayout="column" fxLayoutGap="17px">
                 <div fxFlex="10">
-                  <button mat-flat-button color="primary">Primary</button>
+                  <button mat-flat-button class="button-size google-color">
+                    <div fxLayout="row" fxLayoutGap="10px">
+                      <div fxFlex="2"></div>
+                      <div fxFlex="10" fxLayoutAlign="center center">
+                        <mat-icon svgIcon="google"></mat-icon>
+                      </div>
+                      <div fxFlex="10" class="google-text ">Continue With Google</div>
+                    </div>
+                  </button>
                 </div>
-                <div fxFlex="10">google</div>
+                <div fxFlex="10">
+                  <button mat-flat-button class="button-size facebook-color">
+                    <div fxLayout="row" fxLayoutGap="10px">
+                      <div fxFlex="2"></div>
+                      <div fxFlex="10" fxLayoutAlign="center center">
+                        <mat-icon svgIcon="facebook"></mat-icon>
+                      </div>
+                      <div fxFlex="10" class="google-text ">Continue With Facebook</div>
+                    </div>
+                  </button>
+                </div>
+
+                <div fxFlex="10">
+                  <div fxLayout="column" class="text-color" fxLayoutGap="2px">
+                    <div fxFlex="10"><a href="#">Continue With Email.</a> By signing up you </div>
+                    <div fxFlex="10">indicate that you have read and agree to </div>
+                    <div fxFlex="10">Quora's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy.</a></div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div fxFlex="40">2</div>
+            <div fxFlex="5" ></div>
+
+            <div fxFlex="40" style="border-left:1px solid #e2e2e2;" >
+              <div fxLayout="column" fxLayoutGap="20px" >
+
+                <div fxFlex="10">
+                   <div fxLayout="row">
+                     <div fxFlex="10"></div>
+                     <div fxFlex="20" class="login-heading"><b>Login</b></div>
+                   </div>
+                </div>
+
+                <div fxFlex="10">
+                    <div fxLayout="row">
+                      <div fxFlex="10"></div>
+                      <div fxFlex="20" class="login-heading">
+                        <input type="text" placeholder="Email">
+                      </div>
+                    </div>
+                 </div>
+
+                 <div fxFlex="10">
+                    <div fxLayout="row">
+                      <div fxFlex="10"></div>
+                      <div fxFlex="20" class="login-heading">
+                        <input type="text" placeholder="Password">
+                      </div>
+                    </div>
+                 </div>
+
+                 <div fxFlex="10">
+                    <div fxLayout="row">
+                      <div fxFlex="10"></div>
+                      <div fxFlex="41" class="login-heading">
+                        Forget Password?
+                      </div>
+                      <div fxFlex="20" flex-end ></div>
+                    </div>
+                 </div>
+
+              </div>
+            </div>
           </div>
 
         </div>
+          
+        <div fxFlex="10">
+          <div fxLayout="column" fxLayoutGap="10px" >
+            <div fxFlex="5" class="top-border "></div>
+            <div fxFlex="10" fxLayoutAlign="center center" class="new" >
+                New: <a href="#">Hindi</a>,<a href="#">Indonesian </a> , and <a href="#">Portuguese</a>
+            </div>
+            <div fxFlex="5" class="top-border "></div>
+          </div>
+        </div>
+
+        <div fxFlex="10" class="text-color"   >
+          <div fxLayout="row">
+            <div fxFlex="5"></div>
+            <div fxFlex="8"><a href="https://www.quora.com/about" class="footer">About</a></div>
+            <div fxFlex="12"><a href="https://www.quora.com/about/languages" class="footer">Languages</a></div>
+            <div fxFlex="10"><a href="https://www.quora.com/careers" class="footer">Careers</a></div>
+            <div fxFlex="12"><a href="https://www.quora.com/business" class="footer">Businesses</a></div>
+            <div fxFlex="10"><a href="https://www.quora.com/about/privacy" class="footer">Privacy</a></div>
+            <div fxFlex="10"><a href="https://www.quora.com/about/tos" class="footer">Terms</a></div>
+            <div fxFlex="10"><a href="https://help.quora.com/hc/en-us" class="footer">Contact</a></div>
+            <div fxFlex> © Quora Inc. 2019</div>
+
+
+
+
+          </div>
+        </div>
+
+       
+
+
+        
 
       </div>
     </mat-card>
