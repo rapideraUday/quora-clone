@@ -9,12 +9,17 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { LoginComponent } from './login/login.component';
 import {MatCardModule} from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { LoginFormComponent } from './login-form/login-form.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    LoginFormComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +30,10 @@ import { HttpClientModule } from '@angular/common/http';
     MatCheckboxModule,
     FlexLayoutModule,
     MatCardModule,
-    MatIconModule
+    MatIconModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,56 @@
+<form [formGroup]="myForm">
+  <div fxLayout="column" fxLayoutGap="10px">
+    <div fxFlex="10">
+      <div fxLayout="row">
+        <div fxFlex="10"></div>
+        <div fxFlex="20" class="login-heading"><b>Login</b></div>
+      </div>
+    </div>
+
+    <div fxFlex="10">
+      <div fxLayout="row">
+        <div fxFlex="10"></div>
+        <div fxFlex="40" class="login-heading">
+          <!-- <input type="text" placeholder="Email" size="25"> -->
+          <div class="form-Group">
+            <input type="email " id="email" [(ngModel)]="login.email" formControlName="email" placeholder="email" size="25" required>
+            <div *ngIf="myForm.controls['email'].touched && !myForm.controls['email'].valid" class="alert alert-danger">
+
+              <div *ngIf="myForm.controls['email'].hasError('required') ">
+                Email is required.
+              </div>
+              <div *ngIf="myForm.controls['email'].hasError('email') ">
+                Invalid email.
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+    <div fxFlex="10"></div>
+
+    <div fxFlex="10">
+      <div fxLayout="row">
+        <div fxFlex="10"></div>
+        <div fxFlex="40" class="login-heading">
+          <input type="text" placeholder="Password" size="25">
+        </div>
+      </div>
+    </div>
+
+    <div fxFlex="10">
+      <div fxLayout="row" fxLayoutGap="10">
+        <div fxFlex="10"></div>
+        <div fxFlex="41" class="login-heading">
+          Forget Password?
+        </div>
+        <div fxFlex="20"></div>
+        <div fxFlex="20">
+          <button mat-raised-button color="primary" class="login-button">Login</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

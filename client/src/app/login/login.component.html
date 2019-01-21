@@ -1,4 +1,4 @@
-<div fxLayout="row" layout-wrap fxLayoutAlign="center center" class="background-img">
+<div fxLayout="row" layout-wrap fxLayoutAlign="center center" class="background-imge">
   <div flex>
     <mat-card class="matcard-size">
       <div fxLayout="column" fxLayoutGap="25px">
@@ -54,47 +54,9 @@
             <div fxFlex="5" ></div>
 
             <div fxFlex="40" style="border-left:1px solid #e2e2e2;" >
-              <div fxLayout="column" fxLayoutGap="20px" >
-
-                <div fxFlex="10">
-                   <div fxLayout="row">
-                     <div fxFlex="10"></div>
-                     <div fxFlex="20" class="login-heading"><b>Login</b></div>
-                   </div>
-                </div>
-
-                <div fxFlex="10">
-                    <div fxLayout="row">
-                      <div fxFlex="10"></div>
-                      <div fxFlex="20" class="login-heading">
-                        <input type="text" placeholder="Email">
-                      </div>
-                    </div>
-                 </div>
-
-                 <div fxFlex="10">
-                    <div fxLayout="row">
-                      <div fxFlex="10"></div>
-                      <div fxFlex="20" class="login-heading">
-                        <input type="text" placeholder="Password">
-                      </div>
-                    </div>
-                 </div>
-
-                 <div fxFlex="10">
-                    <div fxLayout="row">
-                      <div fxFlex="10"></div>
-                      <div fxFlex="41" class="login-heading">
-                        Forget Password?
-                      </div>
-                      <div fxFlex="20" flex-end ></div>
-                    </div>
-                 </div>
-
+              <app-login-form></app-login-form>
               </div>
-            </div>
           </div>
-
         </div>
           
         <div fxFlex="10">
