@@ -37,18 +37,18 @@ class UserController implements IBaseController<UserBusiness>{
             const { email, password } = request.body;
             let userBusiness = new UserBusiness();
             userBusiness.login(email, password, (error, result) => {
-                error 
-                ? 
-                    response.send(Utility.generateResponse(404,error, false, null))
-                : 
-                    response.send(Utility.generateResponse(200,'Login Sucessfully', true, result));
+                error
+                    ?
+                    response.send(Utility.generateResponse(404, error, false, null))
+                    :
+                    response.send(Utility.generateResponse(200, 'Login Sucessfully', true, result));
             })
 
         } catch (error) {
             response.send({ "Exception": error });
         }
     }
-    
+
     update(request: express.Request, response: express.Response): void { }
 
     /**
@@ -59,6 +59,7 @@ class UserController implements IBaseController<UserBusiness>{
      */
     retrieve(request: express.Request, response: express.Response): void {
         try {
+            const payload = request.decoded;//user id is present inside payload
 
             const userBusiness = new UserBusiness();
             userBusiness.retrieve((error, result) => {
@@ -74,6 +75,6 @@ class UserController implements IBaseController<UserBusiness>{
     delete(request: express.Request, response: express.Response): void { }
     findById(request: express.Request, response: express.Response): void { }
 
-   
+
 }
 export = UserController;

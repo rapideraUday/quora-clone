@@ -1,6 +1,7 @@
 import express = require('express');
 
 import UserController = require('../../controllers/UserController');
+import ValidateUser = require('../middlewares/ValidateUser');
 
 var router = express.Router();
 
@@ -13,9 +14,14 @@ class UserRoutes {
 
     get routes() {
         var controller = this._UserController;
-        router.get("/allUsers", controller.retrieve);
+
+        /**
+         * @description allUsers route is protected with validate user guard
+         */
+        router.get("/allUsers", ValidateUser.validateUser, controller.retrieve);
+
         router.post("/user", controller.create);
-        router.post("/login",controller.login);
+        router.post("/login", controller.login);
 
         return router;
     }
