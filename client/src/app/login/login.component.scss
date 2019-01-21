@@ -1,0 +1,65 @@
+.background-img{
+    background-image: url('/assets/landing-bg.png');
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    position:fixed;
+
+}
+.matcard-size{
+//    height: 450px; 
+    width: 650px;
+}
+
+.tagline{
+    font-size: 21px;
+    font-weight: 400;
+    color: #949494;
+    font-family: Georgia,Times,"Times New Roman","Hiragino Kaku Gothic Pro","Meiryo",serif;
+}
+.button-size{
+    width: 270px;
+    height: 45px;
+   
+}
+.google-color{
+    background-color: #df4930;
+    color:white;
+}
+.facebook-color{
+    background-color: #507cc0;
+    color:white;
+}
+.google-text{
+    font-size:15px;
+}
+.text-color{
+    color: #949494;
+    font-size:13px;
+    
+}
+
+a {
+    text-decoration: none;
+    color: #2b6dad;
+}
+
+.top-border{
+    border-top: 1px solid #e2e2e2;
+    
+}
+.new{
+    color: #333;
+    font-size: 13px;
+}
+
+.footer{
+   
+    color: #949494;
+}
+
+.login-heading{
+    font-size: 13px;
+}
+
+
