@@ -74,31 +74,29 @@
             </div>
           </form>
         </mat-step>
-        <!-- <mat-step [stepControl]="recaptcha">
-          <form [formGroup]="recaptcha">
-            <ng-template matStepLabel>recaptcha</ng-template>
-            <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" (reset)="handleReset()" (expire)="handleExpire()" (load)="handleLoad()"
-              (success)="handleSuccess($event)" [useGlobalDomain]="false" [size]="size" [hl]="lang" [theme]="theme"
-              [type]="type" formControlName="recaptcha">
-            </ngx-recaptcha2>
-            <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext>Next</button>
-            </div>
-          </form>
-        </mat-step> -->
         <mat-step>
           <ng-template matStepLabel>Submit</ng-template>
-          Please click submit to proceed
-          <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button (click)="registerUser()">Submit</button>
+          <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="space-around center">
+            <div fxFlex="80" class="text-color">
+              By clicking "Sign Up" you
+              indicate that you have read and
+              agree to Quora's <a class="anchor-color" href="https://www.quora.com/about/tos">
+                Terms of Service
+              </a> and
+              <a class="anchor-color" href="https://www.quora.com/about/tos">
+                Privacy Policy.
+              </a>
+            </div>
+            <div fxFlex="20" fxLayoutAlign="center center">
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-raised-button color="primary" (click)="registerUser()">Sign Up</button>
+            </div>
           </div>
         </mat-step>
       </mat-horizontal-stepper>
     </div>
     <div fxFlex="10" fxLayout="row" fxLayoutAlign="end center">
-      <button mat-button class="cancelBtn" (click)="onCancelClick()">Cancel</button>
+      <button mat-raised-button class="cancelBtn" (click)="onCancelClick()">Cancel</button>
     </div>
   </div>
 </mat-card>

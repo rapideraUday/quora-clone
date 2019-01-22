@@ -45,4 +45,12 @@ export class SignUpComponent implements OnInit {
     });
   }
 
+  registerUser(){
+    // console.log(
+    //  `First Name : ${this.firstName.controls['firstName'].value} , Last Name : ${this.lastName['lastName'].value}
+    //   , email: ${this.email.controls['email'].value} , Password : ${this.password.controls['password'].value}`
+    // );
+    
+  }
+
 }
