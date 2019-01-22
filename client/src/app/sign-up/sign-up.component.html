@@ -1,62 +1,104 @@
-<div fxLayout="column" fxLayoutGap="25px">
-  <div fxFlex="10"></div>
-  <div fxFlex="20" fxLayout="row" fxLayoutAlign="center center">
-    <img src="../../assets/images/quora.png" width="224px" height="63px">
-  </div>
-  <div fxFlex="10" fxLayout="row" fxLayoutAlign="center center" class="tagline">
-    A place to share knowledge and better understand the world.
-  </div>
-  <div fxFlex="10"></div>
-  <div fxFlex="40">
-    <div fxLayout="row">
-      <div fxFlex="5"></div>
-      <div fxFlex="40">
-        <div fxLayout="column" fxLayoutGap="10px">
-          <div fxFlex="10" class="sign-up"><b>Sign-up</b></div>
-          <div fxFlex="10">
-            <!-- <div fxLayout="row">
-              <div fxFlex="40">
-                <div fxLayout="column" fxLayoutGap="10px">
-                  <div fxFlex="10" class="label"><b>FIRST NAME </b></div>
-                  <div fxFlex="10">
-                    <mat-form-field appearance="outline">
-                      <mat-label>First Name</mat-label>
-                      <input matInput placeholder="Placeholder">
-                    </mat-form-field>
-                  </div>
-                </div>
+<mat-card>
+  <div fxLayout="column" fxLayoutGap="25px">
+    <div fxFlex="20" fxLayout="row" fxLayoutAlign="center center">
+      <img src="../../assets/images/quora.png" width="224px" height="63px">
+    </div>
+    <div fxFlex="10" fxLayout="row" fxLayoutAlign="center center" class="tagline">
+      A place to share knowledge and better understand the world.
+    </div>
+
+    <div fxFlex="60">
+      <mat-horizontal-stepper [linear]="true" #stepper>
+        <mat-step [stepControl]="firstName">
+          <form [formGroup]="firstName">
+            <ng-template matStepLabel>Fill out your first name</ng-template>
+            <mat-form-field>
+              <input matInput placeholder="First name" formControlName="firstName" required>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="lastName">
+          <form [formGroup]="lastName">
+            <ng-template matStepLabel>Last Name</ng-template>
+            <mat-form-field>
+              <input matInput placeholder="Last Name" formControlName="lastName" required>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="email">
+          <form [formGroup]="email">
+            <ng-template matStepLabel>Email</ng-template>
+            <mat-form-field>
+              <input matInput placeholder="Email" formControlName="email" required>
+            </mat-form-field>
+            <div *ngIf="email.controls['email'].touched && !email.controls['email'].valid" class="alert alert-danger">
+              <div *ngIf="email.controls['email'].hasError('required') ">
+                Email is required.
               </div>
-              <div fxFlex="40">2</div>
-            </div> -->
-            <div fxLayout="row">
-                <mat-form-field appearance="outline">
-                    <mat-label>First Name</mat-label>
-                    <input matInput placeholder="Placeholder">
-                  </mat-form-field>
+              <div *ngIf="email.controls['email'].hasError('email') ">
+                Invalid email.
+              </div>
             </div>
-            <div fxLayout="row">
-                <mat-form-field appearance="outline">
-                    <mat-label>Last Name</mat-label>
-                    <input matInput placeholder="Placeholder">
-                  </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
             </div>
-            <div fxLayout="row">
-                <mat-form-field appearance="outline">
-                    <mat-label>Email</mat-label>
-                    <input matInput placeholder="Placeholder">
-                  </mat-form-field>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="password">
+          <form [formGroup]="password">
+            <ng-template matStepLabel>Password</ng-template>
+            <mat-form-field>
+              <input matInput type="password" placeholder="Password" formControlName="password" required>
+            </mat-form-field>
+            <div *ngIf="password.controls['password'].touched && !password.controls['password'].valid" class="alert alert-danger">
+              <div *ngIf="password.controls['password'].hasError('required') ">
+                Password is required.</div>
+              <div *ngIf="password.controls['password'].hasError('minlength') ">
+                Password should contains at least 8 charactors
+              </div>
+              <div *ngIf="password.controls['password'].hasError('pattern') ">
+                Password contains atleast 1 capital,1 small letter and number
+              </div>
             </div>
-            <div fxLayout="row">
-                <mat-form-field appearance="outline">
-                    <mat-label>Password</mat-label>
-                    <input matInput placeholder="Placeholder">
-                  </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
             </div>
-
-
+          </form>
+        </mat-step>
+        <!-- <mat-step [stepControl]="recaptcha">
+          <form [formGroup]="recaptcha">
+            <ng-template matStepLabel>recaptcha</ng-template>
+            <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" (reset)="handleReset()" (expire)="handleExpire()" (load)="handleLoad()"
+              (success)="handleSuccess($event)" [useGlobalDomain]="false" [size]="size" [hl]="lang" [theme]="theme"
+              [type]="type" formControlName="recaptcha">
+            </ngx-recaptcha2>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step> -->
+        <mat-step>
+          <ng-template matStepLabel>Submit</ng-template>
+          Please click submit to proceed
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="registerUser()">Submit</button>
           </div>
-        </div>
-      </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+    </div>
+    <div fxFlex="10" fxLayout="row" fxLayoutAlign="end center">
+      <button mat-button class="cancelBtn" (click)="onCancelClick()">Cancel</button>
     </div>
   </div>
-</div>
+</mat-card>
