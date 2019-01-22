@@ -25,4 +25,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
+  onCancelClick(signup:boolean){
+    this.signup = signup;
+  }
+
 }

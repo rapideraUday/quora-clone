@@ -12,6 +12,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { HomeComponent } from './home/home.component';
 import { MatUIModule } from './constant/mat-ui.module';
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 
 
@@ -32,6 +33,7 @@ import { MatUIModule } from './constant/mat-ui.module';
     FlexLayoutModule,
     ReactiveFormsModule,
     FormsModule,
+    NgxCaptchaModule
   ],
   providers: [],
   bootstrap: [AppComponent]
