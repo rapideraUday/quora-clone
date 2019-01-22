@@ -30,7 +30,7 @@ class UserBusiness implements IUserBusiness {
     login(email: string, password: string, callback: (error: any, result: any) => void) {
         async.waterfall([
             (done) => {
-                this._UserRepository.findUserByEmail(email, (error, result) => {                    
+                this._UserRepository.findUserByEmail(email, (error, result) => {
                     if (result) {
                         const userPassword: Ihash = this.hashPasswordWithSalt(password, result.salt);
                         if (result.password === userPassword.password) {
@@ -54,7 +54,7 @@ class UserBusiness implements IUserBusiness {
                     return done("User not found", null);
                 });
             },
-            (userDetail, done)=> {
+            (userDetail, done) => {
                 this._UserRepository.update(userDetail._id, userDetail, (error, result) => {
                     if (error) {
                         return done('Internal Server Error', null);
@@ -62,7 +62,7 @@ class UserBusiness implements IUserBusiness {
                     return done(null, userDetail.token);
                 })
             }
-        ], (err, result) =>{
+        ], (err, result) => {
             if (err) return callback(err, null);
             return callback(null, result);
         });
@@ -70,6 +70,14 @@ class UserBusiness implements IUserBusiness {
 
     retrieve(callback: (error: any, result: any) => void) {
         this._UserRepository.retrieve(callback);
+    }
+
+    findByToken(token: string, callback: (error: any, result: any) => void) {
+        this._UserRepository.findByToken(token, callback);
+    }
+
+    logout(_id: string, callback: (error: any, result: any) => void) {
+        this._UserRepository.logout(_id, callback);
     }
 
     delete() { }

@@ -1,7 +1,12 @@
-<div fxLayout="row" layout-wrap fxLayoutAlign="center center" class="background-img">
+<div fxLayout="row" layout-wrap fxLayoutAlign="center center" class="background-imge">
   <div flex>
     <mat-card class="matcard-size">
-      <div fxLayout="column" fxLayoutGap="25px">
+        <div *ngIf="signup" fxLayout="column" fxLayoutGap="25px">
+            <app-sign-up></app-sign-up>
+
+        </div>
+
+      <div *ngIf="!signup" fxLayout="column" fxLayoutGap="25px">
         <div fxFlex="10"></div>
 
         <div fxFlex="20" fxLayout="row" fxLayoutAlign="center center">
@@ -19,6 +24,7 @@
             <div fxFlex="40">
               <div fxLayout="column" fxLayoutGap="17px">
                 <div fxFlex="10">
+                  <a href="https://accounts.google.com/signin/oauth/oauthchooseaccount?client_id=917071888555.apps.googleusercontent.com&as=ap5rVPPxXPUtTy3svyGnVg&destination=https%3A%2F%2Fwww.quora.com&approval_state=!ChRranFydEdQWGcwMzN5U2x0ZjFrSBIfYzJFZGVnV1ZRLXdaOEhuU1JuY2dubXEtWlczMWhoWQ%E2%88%99APNbktkAAAAAXEbH_MdlZ3nYce1iC_He0_Kvw5lT_b_N&oauthgdpr=1&xsrfsig=ChkAeAh8T3i7aUq2A0NO-kIvqOx6vcTEXdzIEg5hcHByb3ZhbF9zdGF0ZRILZGVzdGluYXRpb24SBXNvYWN1Eg9vYXV0aHJpc2t5c2NvcGU&flowName=GeneralOAuthFlow">
                   <button mat-flat-button class="button-size google-color">
                     <div fxLayout="row" fxLayoutGap="10px">
                       <div fxFlex="2"></div>
@@ -28,8 +34,10 @@
                       <div fxFlex="10" class="google-text ">Continue With Google</div>
                     </div>
                   </button>
+                  </a>
                 </div>
                 <div fxFlex="10">
+                  <a href="https://www.facebook.com/login.php?skip_api_login=1&api_key=136609459636&signed_next=1&next=https%3A%2F%2Fwww.facebook.com%2Fv2.8%2Fdialog%2Foauth%3Fchannel%3Dhttps%253A%252F%252Fstaticxx.facebook.com%252Fconnect%252Fxd_arbiter%252Fr%252Fj-GHT1gpo6-.js%253Fversion%253D43%2523cb%253Df1efd14686befc4%2526domain%253Dwww.quora.com%2526origin%253Dhttps%25253A%25252F%25252Fwww.quora.com%25252Ff2b82f84dd87468%2526relation%253Dopener%26redirect_uri%3Dhttps%253A%252F%252Fstaticxx.facebook.com%252Fconnect%252Fxd_arbiter%252Fr%252Fj-GHT1gpo6-.js%253Fversion%253D43%2523cb%253Df108a1116b498d%2526domain%253Dwww.quora.com%2526origin%253Dhttps%25253A%25252F%25252Fwww.quora.com%25252Ff2b82f84dd87468%2526relation%253Dopener%2526frame%253Df1dddd328b18738%26display%3Dpopup%26scope%3Duser_hometown%252Cuser_location%252Cemail%252Cuser_birthday%26response_type%3Dtoken%252Csigned_request%26domain%3Dwww.quora.com%26origin%3D1%26client_id%3D136609459636%26ret%3Dlogin%26sdk%3Djoey%26fallback_redirect_uri%3Dhttps%253A%252F%252Fwww.quora.com%252F%26logger_id%3Df2fb1275-79df-1c41-9050-b2ad49d12064&cancel_url=https%3A%2F%2Fstaticxx.facebook.com%2Fconnect%2Fxd_arbiter%2Fr%2Fj-GHT1gpo6-.js%3Fversion%3D43%23cb%3Df108a1116b498d%26domain%3Dwww.quora.com%26origin%3Dhttps%253A%252F%252Fwww.quora.com%252Ff2b82f84dd87468%26relation%3Dopener%26frame%3Df1dddd328b18738%26error%3Daccess_denied%26error_code%3D200%26error_description%3DPermissions%2Berror%26error_reason%3Duser_denied%26e2e%3D%257B%257D&display=popup&locale=en_GB&logger_id=f2fb1275-79df-1c41-9050-b2ad49d12064">
                   <button mat-flat-button class="button-size facebook-color">
                     <div fxLayout="row" fxLayoutGap="10px">
                       <div fxFlex="2"></div>
@@ -39,13 +47,14 @@
                       <div fxFlex="10" class="google-text ">Continue With Facebook</div>
                     </div>
                   </button>
+                </a>
                 </div>
 
                 <div fxFlex="10">
                   <div fxLayout="column" class="text-color" fxLayoutGap="2px">
-                    <div fxFlex="10"><a href="#">Continue With Email.</a> By signing up you </div>
+                    <div fxFlex="10"><a (click)="signup=!signup" class="anchor-color">Continue With Email.</a> By signing up you </div>
                     <div fxFlex="10">indicate that you have read and agree to </div>
-                    <div fxFlex="10">Quora's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy.</a></div>
+                    <div fxFlex="10">Quora's <a href="https://www.quora.com/about/tos" class="anchor-color">Terms of Service</a> and <a href="https://www.quora.com/about/privacy" class="anchor-color">Privacy Policy.</a></div>
                   </div>
                 </div>
               </div>
@@ -54,54 +63,16 @@
             <div fxFlex="5" ></div>
 
             <div fxFlex="40" style="border-left:1px solid #e2e2e2;" >
-              <div fxLayout="column" fxLayoutGap="20px" >
-
-                <div fxFlex="10">
-                   <div fxLayout="row">
-                     <div fxFlex="10"></div>
-                     <div fxFlex="20" class="login-heading"><b>Login</b></div>
-                   </div>
-                </div>
-
-                <div fxFlex="10">
-                    <div fxLayout="row">
-                      <div fxFlex="10"></div>
-                      <div fxFlex="20" class="login-heading">
-                        <input type="text" placeholder="Email">
-                      </div>
-                    </div>
-                 </div>
-
-                 <div fxFlex="10">
-                    <div fxLayout="row">
-                      <div fxFlex="10"></div>
-                      <div fxFlex="20" class="login-heading">
-                        <input type="text" placeholder="Password">
-                      </div>
-                    </div>
-                 </div>
-
-                 <div fxFlex="10">
-                    <div fxLayout="row">
-                      <div fxFlex="10"></div>
-                      <div fxFlex="41" class="login-heading">
-                        Forget Password?
-                      </div>
-                      <div fxFlex="20" flex-end ></div>
-                    </div>
-                 </div>
-
+              <app-login-form></app-login-form>
               </div>
-            </div>
           </div>
-
         </div>
           
         <div fxFlex="10">
           <div fxLayout="column" fxLayoutGap="10px" >
             <div fxFlex="5" class="top-border "></div>
             <div fxFlex="10" fxLayoutAlign="center center" class="new" >
-                New: <a href="#">Hindi</a>,<a href="#">Indonesian </a> , and <a href="#">Portuguese</a>
+                New: <a href="#" class="anchor-color">Hindi</a>,<a href="#" class="anchor-color">Indonesian </a> , and <a href="#" class="anchor-color">Portuguese</a>
             </div>
             <div fxFlex="5" class="top-border "></div>
           </div>

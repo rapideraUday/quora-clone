@@ -1,5 +1,5 @@
-.background-img{
-    background-image: url('/assets/landing-bg.png');
+.background-imge{
+    background-image: url('/assets/images/landing-bg.png');
     height: 100%;
     width: 100%;
     background-size: cover;
@@ -41,7 +41,10 @@
 
 a {
     text-decoration: none;
-    color: #2b6dad;
+    // color: #2b6dad;
+}
+.anchor-color{
+     color: #2b6dad;
 }
 
 .top-border{
@@ -58,8 +61,8 @@ a {
     color: #949494;
 }
 
-.login-heading{
-    font-size: 13px;
-}
+// .login-heading{
+//     font-size: 13px;
+// }
 
 

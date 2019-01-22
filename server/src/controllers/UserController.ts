@@ -37,28 +37,53 @@ class UserController implements IBaseController<UserBusiness>{
             const { email, password } = request.body;
             let userBusiness = new UserBusiness();
             userBusiness.login(email, password, (error, result) => {
-                error 
-                ? 
-                    response.send(Utility.generateResponse(404,error, false, null))
-                : 
-                    response.send(Utility.generateResponse(200,'Login Sucessfully', true, result));
+                error
+                    ?
+                    response.send(Utility.generateResponse(404, error, false, null))
+                    :
+                    response.send(Utility.generateResponse(200, 'Login Sucessfully', true, result));
             })
 
         } catch (error) {
             response.send({ "Exception": error });
         }
     }
-    
+
+    /**
+     * @api $BASE_URL/api/v1/auth/logout
+     * @description For loging out from user session
+     * @param request 
+     * @param response 
+     */
+    logout(request: express.Request, response: express.Response): void {
+        try {
+            let _id = request.user._id;
+            let userBusiness = new UserBusiness();
+            userBusiness.logout(_id, (error, result) => {
+                error
+                    ?
+                    response.send(Utility.generateResponse(404, error, false, null))
+                    :
+                    response.send(Utility.generateResponse(200, 'Loging out Sucessfully', true, result));
+            })
+
+        } catch (error) {
+            response.send({ "Exception": error });
+        }
+    }
+
+
     update(request: express.Request, response: express.Response): void { }
 
     /**
-     * @api localhost:8626/allUsers
+     * @api $BASE_URL/api/v1/allUsers
      * @description Api for getting all users
      * @param request 
      * @param response 
      */
     retrieve(request: express.Request, response: express.Response): void {
         try {
+            const user = request.user;
 
             const userBusiness = new UserBusiness();
             userBusiness.retrieve((error, result) => {
@@ -74,6 +99,7 @@ class UserController implements IBaseController<UserBusiness>{
     delete(request: express.Request, response: express.Response): void { }
     findById(request: express.Request, response: express.Response): void { }
 
-   
+
+
 }
 export = UserController;

@@ -5,7 +5,6 @@ import cors = require('cors');
 import MethodOverride = require('../MethodOverride');
 import BaseRoutes = require('../../routes/base'); 
 
-
 class MiddlewaresBase {
     
     static get configuration () {
