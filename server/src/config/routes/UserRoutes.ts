@@ -15,13 +15,18 @@ class UserRoutes {
     get routes() {
         var controller = this._UserController;
 
-        /**
-         * @description allUsers route is protected with validate user guard
-         */
-        router.get("/allUsers", ValidateUser.validateUser, controller.retrieve);
+
 
         router.post("/user", controller.create);
         router.post("/login", controller.login);
+
+        /**
+        * @description allUsers route is protected with validate user guard
+        */
+        router.get("/auth/allUsers", ValidateUser.auth, controller.retrieve);
+        router.get("/auth/logout", ValidateUser.auth, controller.logout);
+
+
 
         return router;
     }
