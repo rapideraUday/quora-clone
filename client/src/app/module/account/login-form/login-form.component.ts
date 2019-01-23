@@ -26,8 +26,8 @@ export class LoginFormComponent implements OnInit {
   this.loginRequest();
   }
   loginRequest(): any {
-    this.myForm.controls.email.value = 'test@gmail.com';
-    this.myForm.controls.password.value = '12552245';
+    this.myForm.controls.email.value = 'rahul@gmail.com';
+    this.myForm.controls.password.value = '12345678';
     console.log(this.myForm.controls.email.value);
     
     const loginRequest:ApiParam = {
@@ -37,6 +37,12 @@ export class LoginFormComponent implements OnInit {
       }
     };  
     this.apiService.request('LOGIN',loginRequest).subscribe((res) => {
+      console.log(res);
+    })
+    this.apiService.request('UPDATE_USER',loginRequest).subscribe((res) => {
+      console.log(res);
+    })
+    this.apiService.request('DELETE_USER',loginRequest).subscribe((res) => {
       console.log(res);
     })
 

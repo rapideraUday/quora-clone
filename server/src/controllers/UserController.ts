@@ -73,7 +73,17 @@ class UserController implements IBaseController<UserBusiness>{
     }
 
 
-    update(request: express.Request, response: express.Response): void { }
+    update(request: express.Request, response: express.Response): void {
+        console.log(request.body);
+
+        response.send({
+            url:request.url,
+            data:{
+                name:"rahul",
+                msg:"from PUT call"
+            }
+        });
+     }
 
     /**
      * @api $BASE_URL/api/v1/allUsers
@@ -96,7 +106,17 @@ class UserController implements IBaseController<UserBusiness>{
         }
     }
 
-    delete(request: express.Request, response: express.Response): void { }
+    delete(request: express.Request, response: express.Response): void {
+        console.log(request.body);
+        
+        response.send({
+            url:request.url,
+            data:{
+                name:"rahul",
+                msg:"from DELETE call"
+            }
+        });
+     }
     findById(request: express.Request, response: express.Response): void { }
 
 

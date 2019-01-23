@@ -26,6 +26,9 @@ class UserRoutes {
         router.get("/auth/allUsers", controller.retrieve);
         router.get("/auth/logout", ValidateUser.auth, controller.logout);
 
+        router.put("/update", controller.update);
+        router.delete("/delete", controller.delete);
+
 
 
         return router;

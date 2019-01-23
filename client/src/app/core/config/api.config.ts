@@ -24,7 +24,7 @@ export enum ApiEndpointType {
 @Injectable()
 export class EndpointService {
 
-  private readonly baseUrl: string = 'http://localhost:6426/api/v1';
+  private readonly baseUrl: string = 'http://localhost:3770/api/v1';
   private endpoints: Array<IApiEndpoint> = [];
 
   constructor() {
@@ -51,6 +51,16 @@ export class EndpointService {
       { name: 'LOGIN', url: '/login', method: 'POST' },
       { name: 'ALL_USER', url: '/auth/allUsers', method: 'GET' },
       { name: 'LOGOUT', url: '/v1/auth/logout', method: 'POST' },
+
+      { name: 'UPDATE_USER', url: '/update', method: 'PUT' },
+      { name: 'DELETE_USER', url: '/delete', method: 'DELETE' },
+
+
+
+
+      /***
+       * 
+       */
     ];
   }
 }
