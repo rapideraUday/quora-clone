@@ -13,7 +13,7 @@
           <form [formGroup]="firstName">
             <ng-template matStepLabel>Fill out your first name</ng-template>
             <mat-form-field>
-              <input matInput placeholder="First name" formControlName="firstName" required>
+              <input matInput type="text" placeholder="First name" formControlName="firstName" required>
             </mat-form-field>
             <div>
               <button mat-button matStepperNext>Next</button>
@@ -24,7 +24,7 @@
           <form [formGroup]="lastName">
             <ng-template matStepLabel>Last Name</ng-template>
             <mat-form-field>
-              <input matInput placeholder="Last Name" formControlName="lastName" required>
+              <input matInput type="text" placeholder="Last Name" formControlName="lastName" required>
             </mat-form-field>
             <div>
               <button mat-button matStepperPrevious>Back</button>
@@ -36,7 +36,7 @@
           <form [formGroup]="email">
             <ng-template matStepLabel>Email</ng-template>
             <mat-form-field>
-              <input matInput placeholder="Email" formControlName="email" required>
+              <input matInput type="email" placeholder="Email" formControlName="email" required>
             </mat-form-field>
             <div *ngIf="email.controls['email'].touched && !email.controls['email'].valid" class="alert alert-danger">
               <div *ngIf="email.controls['email'].hasError('required') ">
