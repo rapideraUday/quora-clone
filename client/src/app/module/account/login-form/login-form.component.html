@@ -1,4 +1,4 @@
-<form [formGroup]="myForm">
+<form #form [formGroup]="myForm" (onSubmit)="loginRequest(form.value)">
   <div fxLayout="column" fxLayoutGap="10px">
     <div fxFlex="10">
       <div fxLayout="row">

@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 
 import { AuthService, } from './auth.service';
 import { RolesService } from './../authorization/roles.service';
+import { map } from 'rxjs/operators';
 
 
 @Injectable()
@@ -51,7 +52,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     if (this.authService.isLoggedIn()) {
 
       return this.authService.loggedInUser()
-        .map(response => {
+        .pipe(map(response => {
           if (!response) { return; }
 
           const hasPermission = this.roleService.hasPermission(response.user.role.name, next.data['routeName']);
@@ -60,7 +61,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
           }
 
           return hasPermission;
-        });
+        }));
     }
 
     this.router.navigate(['/login'], { queryParams: { redirectTo: state.url } });

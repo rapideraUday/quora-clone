@@ -1,9 +1,10 @@
 import { Injectable, Optional, SkipSelf } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
-import { Subject, Observable } from 'rxjs';
+import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
+import { Subject, Observable, of } from 'rxjs';
 import { EndpointService } from './../../config';
 import { AppStorage } from './app-storage.service';
 import { ExceptionService } from './../exception/exception.service';
+import { map, catchError, finalize } from 'rxjs/operators';
 
 interface ILoginRequest {
     email: string;
@@ -27,7 +28,7 @@ export class AuthService {
 
     constructor(
         @Optional() @SkipSelf() prior: AuthService,
-        private http: Http,
+        private http: HttpClient,
         private endpointService: EndpointService,
         private exceptionService: ExceptionService,
         private appStorage: AppStorage,
@@ -44,21 +45,21 @@ export class AuthService {
 
     /**
      * Login : tries to login user with the given request.
-     * @param request
+     * @param- request
      */
     login(request: ILoginRequest): Observable<any> {
         const url = this.endpointService.get('LOGIN').url;
-        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         const body = JSON.stringify(request);
 
         const response = this.http
             .post(`${url}`, body, { headers: headers })
-            .map(res => {
+            .pipe(map(res => {
                 const resp = this.extractData(res);
                 this.saveTokenOnSuccessLogin(resp);
                 return resp;
-            })
-            .catch(this.exceptionService.catchBadResponse);
+            }))
+            .pipe(catchError(this.exceptionService.catchBadResponse));
 
         return response;
     }
@@ -68,7 +69,7 @@ export class AuthService {
      */
     logout(): Observable<any> {
         const url = this.endpointService.get('LOGOUT').url;
-        const headers = new Headers({
+        const headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'Authorization': 'Token ' + this.appStorage.get('auth_token')
         });
@@ -76,9 +77,9 @@ export class AuthService {
         const response = this.http
             .post(`${url}`, {}, { headers: headers })
             // .map(res => <IResponse>res.json().data)
-            .map(res => <any>res.json())
-            .catch(this.exceptionService.catchBadResponse)
-            .finally(() => this.clearTokenOnSuccessLogout());
+            .pipe(map(res => <IResponse>res))
+            .pipe(catchError(this.exceptionService.catchBadResponse))
+            .pipe(finalize(() => this.clearTokenOnSuccessLogout()));
 
         return response;
     }
@@ -88,22 +89,22 @@ export class AuthService {
      */
     loggedInUser(): Observable<any> {
         if (this.currentUser) {
-            return Observable.of(this.currentUser);
+            return of(this.currentUser);
         }
 
         if (!this.loggedInUserState) {
             this.loggedInUserState = this.LoggedInUserSubject.asObservable();
 
             const url = this.endpointService.get('GET_LOGGEDINUSER').url;
-            const headers = new Headers({
+            const headers = new HttpHeaders({
                 'Content-Type': 'application/json',
                 'Authorization': 'Token ' + this.appStorage.get('auth_token')
             });
 
             const response = this.http
                 .get(`${url}`, { headers: headers })
-                .map(res => res.json())
-                .catch(this.exceptionService.catchBadResponse);
+                .pipe(map(res => res))
+                .pipe(catchError(this.exceptionService.catchBadResponse));
 
             response.subscribe(resp => {
                 this.currentUser = resp;
@@ -133,7 +134,7 @@ export class AuthService {
         this.loggedInUserState = null;
     }
 
-    private extractData(res: Response) {
+    private extractData(res) {
 
         if (res.status < 200 || res.status >= 300) {
             throw new Error('Bad response status: ' + res.status);

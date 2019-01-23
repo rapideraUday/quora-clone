@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
+import { ApiService, ApiParam } from '../../../core/services/api/api.service';
 
 
 @Component({
@@ -13,13 +14,32 @@ export class LoginFormComponent implements OnInit {
   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,20}$"
   
   
-  constructor(private formBuilder:FormBuilder) { }
+  constructor(private formBuilder:FormBuilder,
+     private apiService: ApiService) { }
 
   ngOnInit() {
-   
+    
     this.myForm = this.formBuilder.group({
       email: ['', [Validators.required,Validators.email]],
       password: ['', [Validators.required,Validators.minLength(8),Validators.pattern(this.pattern)]],
   })
+  this.loginRequest();
+  }
+  loginRequest(): any {
+    this.myForm.controls.email.value = 'test@gmail.com';
+    this.myForm.controls.password.value = '12552245';
+    console.log(this.myForm.controls.email.value);
+    
+    const loginRequest:ApiParam = {
+      data: {
+        email: this.myForm.controls.email.value,
+        password: this.myForm.controls.password.value
+      }
+    };  
+    this.apiService.request('LOGIN',loginRequest).subscribe((res) => {
+      console.log(res);
+    })
+
+
   }
 }

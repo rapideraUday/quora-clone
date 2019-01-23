@@ -9,8 +9,7 @@ import {MatIconRegistry} from '@angular/material';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  
-  signup:boolean=false;
+  signup: boolean;
 
   constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
@@ -25,8 +24,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  onCancelClick(signup:boolean){
+  onCancelClick(signup: boolean) {
     this.signup = signup;
   }
-
 }
