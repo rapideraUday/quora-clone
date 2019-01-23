@@ -9,12 +9,14 @@ import { NgxCaptchaModule } from 'ngx-captcha';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AccountModule } from './module/account/account.module';
+import { ToolbarComponent } from './core/components/toolbar/toolbar.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    ToolbarComponent,
   ],
   imports: [
     BrowserModule,
