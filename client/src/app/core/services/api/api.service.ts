@@ -33,7 +33,9 @@ interface ApiResult {
     message: string;
 }
 
-@Injectable()
+@Injectable({
+    providedIn:'root'
+  })
 export class ApiService {
 
     constructor(

@@ -6,7 +6,9 @@ interface LoadingStatus {
   active: boolean;
 }
 
-@Injectable()
+@Injectable({
+  providedIn:'root'
+})
 export class LoadingService {
   private loadingSubject = new Subject<LoadingStatus>();
   loadingState = this.loadingSubject.asObservable().pipe(delay(10));

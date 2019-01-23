@@ -10,11 +10,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AccountModule } from './module/account/account.module';
 
-import { ExceptionService } from './core/services/exception/exception.service';
-import { AppStorage } from './core/services/authentication/app-storage.service';
-import { EndpointService } from './core/config';
-import { LoadingService } from './core/services/loading/loading.service';
-import { ApiService } from './core/services/api/api.service';
 import { ToolbarComponent } from './core/components/toolbar/toolbar.component';
 
 
@@ -34,7 +29,7 @@ import { ToolbarComponent } from './core/components/toolbar/toolbar.component';
     // NgxCaptchaModule,
     AccountModule,
   ],
-  providers: [ApiService,ExceptionService, AppStorage,EndpointService, LoadingService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

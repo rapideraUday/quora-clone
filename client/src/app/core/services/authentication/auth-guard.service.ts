@@ -16,7 +16,9 @@ import { RolesService } from './../authorization/roles.service';
 import { map } from 'rxjs/operators';
 
 
-@Injectable()
+@Injectable({
+  providedIn:'root'
+})
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   deniedMessage = 'Unauthorized access denied';
 

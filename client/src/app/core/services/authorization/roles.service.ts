@@ -8,7 +8,9 @@ interface Permission {
     avatar: string;
 }
 
-@Injectable()
+@Injectable({
+    providedIn:'root'
+  })
 export class RolesService {
 
     private roles = {

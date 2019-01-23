@@ -9,7 +9,9 @@ import { AppStorage } from './../authentication/app-storage.service';
  * @"class" ExceptionService
  * @description Handles all types of exceptions in the application.
  */
-@Injectable()
+@Injectable({
+  providedIn:'root'
+})
 export class ExceptionService {
 
   constructor(

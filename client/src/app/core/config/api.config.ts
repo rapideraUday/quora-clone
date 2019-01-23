@@ -21,7 +21,9 @@ export enum ApiEndpointType {
 /**
  *
  */
-@Injectable()
+@Injectable({
+  providedIn:'root'
+})
 export class EndpointService {
 
   private readonly baseUrl: string = 'http://localhost:3770/api/v1';

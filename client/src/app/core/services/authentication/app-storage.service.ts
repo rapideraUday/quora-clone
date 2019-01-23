@@ -6,7 +6,9 @@ interface StorageItem {
   value: string;
 }
 
-@Injectable()
+@Injectable({
+  providedIn:'root'
+})
 export class AppStorage {
 
   private items: Array<StorageItem> = Array<StorageItem>();

@@ -18,7 +18,9 @@ interface IResponse {
 
 
 
-@Injectable()
+@Injectable({
+    providedIn:'root'
+  })
 export class AuthService {
 
     private LoggedInUserSubject = new Subject<any>();

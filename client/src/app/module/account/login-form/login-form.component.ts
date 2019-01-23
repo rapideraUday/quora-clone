@@ -28,7 +28,6 @@ export class LoginFormComponent implements OnInit {
   loginRequest(): any {
     this.myForm.controls.email.value = 'rahul@gmail.com';
     this.myForm.controls.password.value = '12345678';
-    console.log(this.myForm.controls.email.value);
     
     const loginRequest:ApiParam = {
       data: {
