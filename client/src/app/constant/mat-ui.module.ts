@@ -9,7 +9,8 @@ import {
     MatSelectModule,
     MatExpansionModule,
     MatInputModule,
-    MatStepperModule
+    MatStepperModule,
+    MatTooltipModule
 } from '@angular/material';
 
 @NgModule({
@@ -23,7 +24,8 @@ import {
         MatSelectModule,
         MatExpansionModule,
         MatInputModule,
-        MatStepperModule
+        MatStepperModule,
+        MatTooltipModule
     ],
     exports: [
         MatFormFieldModule,
@@ -35,7 +37,8 @@ import {
         MatSelectModule,
         MatExpansionModule,
         MatInputModule,
-        MatStepperModule
+        MatStepperModule,
+        MatTooltipModule
     ]
 })
 export class MatUIModule {

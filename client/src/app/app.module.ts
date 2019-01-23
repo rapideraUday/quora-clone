@@ -13,6 +13,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { HomeComponent } from './home/home.component';
 import { MatUIModule } from './constant/mat-ui.module';
 import { NgxCaptchaModule } from 'ngx-captcha';
+import { FeedComponent } from './feed/feed.component';
 
 
 
@@ -22,7 +23,8 @@ import { NgxCaptchaModule } from 'ngx-captcha';
     LoginComponent,
     LoginFormComponent,
     SignUpComponent,
-    HomeComponent
+    HomeComponent,
+    FeedComponent
   ],
   imports: [
     BrowserModule,
