@@ -39,9 +39,9 @@ class UserController implements IBaseController<UserBusiness>{
             userBusiness.login(email, password, (error, result) => {
                 error
                     ?
-                    response.send(Utility.generateResponse(404, error, false, null))
+                    response.status(404).send(Utility.generateResponse(404, error, false, null))
                     :
-                    response.send(Utility.generateResponse(200, 'Login Sucessfully', true, result));
+                    response.status(200).send(Utility.generateResponse(200, 'Login Sucessfully', true, result));
             })
 
         } catch (error) {
@@ -97,7 +97,9 @@ class UserController implements IBaseController<UserBusiness>{
 
             const userBusiness = new UserBusiness();
             userBusiness.retrieve((error, result) => {
-                error ? response.send({ "error": error }) : response.send(result);
+                console.log(error)
+                error ? response.status(404).send(Utility.generateResponse(404, error, false, null)) : response.send(Utility.generateResponse(200, 'All users', true, result));
+               
             });
         }
 

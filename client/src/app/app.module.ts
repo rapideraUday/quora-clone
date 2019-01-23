@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { AccountModule } from './module/account/account.module';
 
 import { ToolbarComponent } from './core/components/toolbar/toolbar.component';
+import { MaterialModule } from './core/shared/material/material.module';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { ToolbarComponent } from './core/components/toolbar/toolbar.component';
   ],
   imports: [
     BrowserModule,
+    MaterialModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,

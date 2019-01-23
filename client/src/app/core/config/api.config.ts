@@ -51,7 +51,7 @@ export class EndpointService {
        * FOR LOGIN & LOGOUT
        */
       { name: 'LOGIN', url: '/login', method: 'POST' },
-      { name: 'ALL_USER', url: '/auth/allUsers', method: 'GET' },
+      { name: 'ALL_USERS', url: '/auth/allUsers', method: 'GET' },
       { name: 'LOGOUT', url: '/v1/auth/logout', method: 'POST' },
 
       { name: 'UPDATE_USER', url: '/update', method: 'PUT' },

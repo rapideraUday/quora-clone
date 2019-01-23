@@ -1,4 +1,4 @@
-<form #form [formGroup]="myForm" (onSubmit)="loginRequest(form.value)">
+<form [formGroup]="myForm" (ngSubmit)="loginRequest(myForm.value)">
   <div fxLayout="column" fxLayoutGap="10px">
     <div fxFlex="10">
       <div fxLayout="row">
@@ -14,7 +14,7 @@
           <div class="form-Group">
             <mat-form-field appearance="outline" [ngStyle]="{'font-size.px': 10}">
               <mat-label>Email</mat-label>
-              <input matInput type="email " id="email" [(ngModel)]="login.email" formControlName="email" placeholder="Email"
+              <input matInput type="email " id="email" formControlName="email" placeholder="Email"
                 size="25">
             </mat-form-field>
             <div *ngIf="myForm.controls['email'].touched && !myForm.controls['email'].valid" class="alert alert-danger ">
@@ -36,7 +36,7 @@
           <div class="form-Group">
             <mat-form-field appearance="outline" [ngStyle]="{'font-size.px': 10}">
               <mat-label>Password</mat-label>
-              <input matInput type="password" id="password" [(ngModel)]="login.password" formControlName="password"
+              <input matInput type="password" id="password" formControlName="password"
                 placeholder="Password" size="25">
             </mat-form-field>
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ApiService, ApiParam } from '../../../core/services/api/api.service';
 
 
@@ -26,24 +26,29 @@ export class LoginFormComponent implements OnInit {
   this.loginRequest();
   }
   loginRequest(): any {
+    // console.log(form);
+    // const {email , password } = form 
     this.myForm.controls.email.value = 'rahul@gmail.com';
     this.myForm.controls.password.value = '12345678';
     
     const loginRequest:ApiParam = {
       data: {
-        email: this.myForm.controls.email.value,
-        password: this.myForm.controls.password.value
+        email:  this.myForm.controls['email'].value,
+        password:  this.myForm.controls['password'].value
       }
     };  
     this.apiService.request('LOGIN',loginRequest).subscribe((res) => {
       console.log(res);
     })
-    this.apiService.request('UPDATE_USER',loginRequest).subscribe((res) => {
-      console.log(res);
-    })
-    this.apiService.request('DELETE_USER',loginRequest).subscribe((res) => {
-      console.log(res);
-    })
+    // this.apiService.request('UPDATE_USER',loginRequest).subscribe((res) => {
+    //   console.log(res);
+    // })
+    // this.apiService.request('DELETE_USER',loginRequest).subscribe((res) => {
+    //   console.log(res);
+    // })
+    // this.apiService.request('ALL_USERS').subscribe((res) => {
+    //   console.log(res);
+    // })
 
 
   }
