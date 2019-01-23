@@ -1,5 +1,6 @@
 import { Injectable, Optional, SkipSelf } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 interface LoadingStatus {
   active: boolean;
@@ -8,7 +9,7 @@ interface LoadingStatus {
 @Injectable()
 export class LoadingService {
   private loadingSubject = new Subject<LoadingStatus>();
-  loadingState = this.loadingSubject.asObservable().delay(10);
+  loadingState = this.loadingSubject.asObservable().pipe(delay(10));
 
   counter = 0;
 
