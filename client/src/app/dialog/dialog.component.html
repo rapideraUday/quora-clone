@@ -12,7 +12,7 @@
       <div fxFlex="5"></div>
       <div fxFlex="40">
         <a>
-          <div fxLayout="column" class="background-color" fxLayoutGap="5px" [matMenuTriggerFor]="menu">
+          <div fxLayout="column" class="background-color"  [matMenuTriggerFor]="menu">
             <div fxFlex="5"></div>
             <div fxFlex="5">
               <!-- <b>Show to Followers</b> -->
@@ -59,15 +59,15 @@
                   </div>
                 </div>
                 <div fxFlex="10">
-                    <div fxLayout="row">
-                      <div fxFlex="10"></div>
-                      <div fxFlex="10"></div>
-                      <div fxFlex="60">
-                        <div><b class="menu-heading">Anonymouse</b></div>
-                        <div class="text"> Your identity not associated with this question</div>
-                      </div>
+                  <div fxLayout="row">
+                    <div fxFlex="10"></div>
+                    <div fxFlex="10"></div>
+                    <div fxFlex="60">
+                      <div><b class="menu-heading">Anonymouse</b></div>
+                      <div class="text"> Your identity not associated with this question</div>
                     </div>
                   </div>
+                </div>
               </div>
 
             </mat-menu>
@@ -83,7 +83,7 @@
       <div fxFlex="95">
         <mat-form-field appearance="legacy" [ngStyle]="{'font-size.px': 15,'width.px':500}">
           <mat-label>Your Question</mat-label>
-          <input matInput placeholder="Start your question What, How,Why etc " matTooltip="Start your question What, How,Why etc">
+          <input matInput placeholder="Start your question with What, How,Why etc " matTooltip="Start your question with What, How,Why etc">
           <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
         </mat-form-field>
       </div>
