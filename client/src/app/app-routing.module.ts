@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { HomeComponent } from './home/home.component';
 import { FeedComponent } from './feed/feed.component';
+import { QuestionComponent } from './question/question.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,11 @@ const routes: Routes = [
   {
     path: 'feed',
     component: FeedComponent,
+
+  },
+  {
+    path: 'question',
+    component: QuestionComponent,
 
   },
   

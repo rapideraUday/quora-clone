@@ -14,6 +14,8 @@ import { HomeComponent } from './home/home.component';
 import { MatUIModule } from './constant/mat-ui.module';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { FeedComponent } from './feed/feed.component';
+import { QuestionComponent } from './question/question.component';
+import { DialogComponent } from './dialog/dialog.component';
 
 
 
@@ -24,7 +26,9 @@ import { FeedComponent } from './feed/feed.component';
     LoginFormComponent,
     SignUpComponent,
     HomeComponent,
-    FeedComponent
+    FeedComponent,
+    QuestionComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +42,7 @@ import { FeedComponent } from './feed/feed.component';
     NgxCaptchaModule
   ],
   providers: [],
+  entryComponents:[DialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
