@@ -16,6 +16,11 @@ import { NgxCaptchaModule } from 'ngx-captcha';
 import { FeedComponent } from './feed/feed.component';
 import { QuestionComponent } from './question/question.component';
 import { DialogComponent } from './dialog/dialog.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
+import { LeftsideComponent } from './leftside/leftside.component';
+import { RightsideComponent } from './rightside/rightside.component';
+import { EbookdialogComponent } from './ebookdialog/ebookdialog.component';
+import { DownloadComponent } from './download/download.component';
 
 
 
@@ -28,7 +33,12 @@ import { DialogComponent } from './dialog/dialog.component';
     HomeComponent,
     FeedComponent,
     QuestionComponent,
-    DialogComponent
+    DialogComponent,
+    ToolbarComponent,
+    LeftsideComponent,
+    RightsideComponent,
+    EbookdialogComponent,
+    DownloadComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +52,7 @@ import { DialogComponent } from './dialog/dialog.component';
     NgxCaptchaModule
   ],
   providers: [],
-  entryComponents:[DialogComponent],
+  entryComponents:[DialogComponent,EbookdialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

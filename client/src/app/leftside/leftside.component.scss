@@ -1,0 +1,24 @@
+.side-text{
+    // color: #949494;
+    color: #333;
+    font-size: 13px;
+    font-family: 'q_serif',Georgia,Times,"Times New Roman","Hiragino Kaku Gothic Pro","Meiryo",serif;
+    
+}
+.icon-color{
+    color: #b92b27;
+}
+.bg-color{
+    background-color:rgba(27, 2, 2, 0.048);
+    border-radius: 5px;
+    border: 1px solid  #949494;
+}
+.side-text:hover{
+    color: #2b6dad;
+    cursor:pointer;
+	cursor:hand;
+}
+.bg-color:hover{
+    border: 1px solid  #2b6dad;
+}
+

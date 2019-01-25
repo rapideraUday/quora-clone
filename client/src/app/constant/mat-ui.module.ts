@@ -12,7 +12,8 @@ import {
     MatStepperModule,
     MatTooltipModule,
     MatDialogModule,
-    MatMenuModule
+    MatMenuModule,
+    MatBadgeModule
 } from '@angular/material';
 
 @NgModule({
@@ -29,7 +30,8 @@ import {
         MatStepperModule,
         MatTooltipModule,
         MatDialogModule,
-        MatMenuModule
+        MatMenuModule,
+        MatBadgeModule
     ],
     exports: [
         MatFormFieldModule,
@@ -44,7 +46,8 @@ import {
         MatStepperModule,
         MatTooltipModule,
         MatDialogModule,
-        MatMenuModule
+        MatMenuModule,
+        MatBadgeModule
     ]
 })
 export class MatUIModule {

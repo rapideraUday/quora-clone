@@ -5,6 +5,9 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { HomeComponent } from './home/home.component';
 import { FeedComponent } from './feed/feed.component';
 import { QuestionComponent } from './question/question.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
+import { LeftsideComponent } from './leftside/leftside.component';
+import { RightsideComponent } from './rightside/rightside.component';
 
 const routes: Routes = [
   {
@@ -25,6 +28,21 @@ const routes: Routes = [
   {
     path: 'question',
     component: QuestionComponent,
+
+  },
+  {
+    path: 'toolbar',
+    component: ToolbarComponent,
+
+  },
+  {
+    path: 'leftside',
+    component: LeftsideComponent,
+
+  },
+  {
+    path: 'rightside',
+    component: RightsideComponent,
 
   },
   

@@ -81,7 +81,7 @@
     <div fxLayout="row">
       <div fxFlex="5"></div>
       <div fxFlex="95">
-        <mat-form-field appearance="legacy" [ngStyle]="{'font-size.px': 15,'width.px':500}">
+        <mat-form-field appearance="legacy" [ngStyle]="{'font-size.px': 15,'width':100+ '%'}">
           <mat-label>Your Question</mat-label>
           <input matInput placeholder="Start your question with What, How,Why etc " matTooltip="Start your question with What, How,Why etc">
           <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
@@ -93,7 +93,7 @@
     <div fxLayout="row">
       <div fxFlex="5"></div>
       <div fxFlex="95">
-        <mat-form-field appearance="legacy" [ngStyle]="{'font-size.px': 15,'width.px':500}">
+        <mat-form-field appearance="legacy" [ngStyle]="{'font-size.px': 15,'width':100+ '%'}">
           <mat-label>Optional</mat-label>
           <input matInput placeholder="Optional:include link that gives context">
         </mat-form-field>
@@ -101,16 +101,15 @@
     </div>
   </div>
   <div fxFlex="10">
-    <div fxLayout="row">
-      <div fxFlex="5"></div>
-      <div fxFlex="50"></div>
-      <div fxFlex="45">
-        <div fxLayout="row">
-          <div fxFlex="10"> <button mat-raised-button (click)="onNoClick()">Cancel</button></div>
-          <div fxFlex="20"></div>
-          <div fxFlex="10"><button mat-raised-button color="primary">Add Question</button></div>
-        </div>
+    <div fxLayout="row" fxLayoutAlign="end center" >
+     
+      <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
+
+        <div fxFlex > <button mat-raised-button (click)="onNoClick()">Cancel</button></div>
+        
+        <div fxFlex ><button mat-raised-button color="primary">Add Question</button></div>
       </div>
+        
       <!-- <div fxFlex="10"> <button mat-raised-button>Cancel</button></div>
       <div fxFlex="10"></div>
       <div fxFlex="10"><button mat-raised-button color="primary">Add Question</button></div> -->
