@@ -26,6 +26,7 @@
     "jsonwebtoken": "^8.4.0",
     "method-override": "^2.3.5",
     "mongojs": "^2.6.0",
+    "mongoosastic": "^4.4.1",
     "mongoose": "^5.4.6",
     "nodemon": "1.11.0",
     "validator": "^10.11.0"
