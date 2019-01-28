@@ -34,6 +34,9 @@ class UserRoutes {
          */
         router.get("/auth/search", controller.searchCheck);
 
+        router.put('/auth/update/:_id',controller.update);
+        
+        router.put('/auth/updateall/:lastName', controller.updateAll);
 
 
 

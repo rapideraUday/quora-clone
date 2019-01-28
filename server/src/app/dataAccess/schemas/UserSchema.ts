@@ -10,7 +10,7 @@ class UserSchema {
 
     static get schema() {
         return mongoose.Schema({
-            id: {
+            _id: {
                 type: String,
                 required: false
             },
@@ -52,7 +52,7 @@ stream =   User.synchronize(),
            count = 0;
            
             stream.on('data', function (err, doc) {
-                console.log('data',doc);
+                // console.log('data',doc);
                 
                 count++;
               });
@@ -66,6 +66,7 @@ stream =   User.synchronize(),
                 
                 console.log(err);
               });
+console.log("Schema###########################",User);
 
 
 export = User;

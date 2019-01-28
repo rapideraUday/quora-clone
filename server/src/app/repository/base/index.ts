@@ -20,8 +20,8 @@ class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IWrite<T>
          this._model.find({}, callback)
     }
     
-    update (_id: mongoose.Types.ObjectId, item: T, callback: (error: any, result: any) => void) {
-            this._model.update({_id: _id}, item, callback);
+        update (_id: mongoose.Types.ObjectId, item: T, callback: (error: any, result: any) => void) {
+            this._model.findOneAndUpdate({_id:_id},item,{new: true} ,callback);
             
     }
         

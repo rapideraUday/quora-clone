@@ -81,16 +81,46 @@ class UserController implements IBaseController<UserBusiness>{
 
 
     update(request: express.Request, response: express.Response): void {
-        console.log(request.body);
+        try {
+            let _id = request.params._id;
 
-        response.send({
-            url:request.url,
-            data:{
-                name:"rahul",
-                msg:"from PUT call"
-            }
-        });
-     }
+            let body = request.body;
+
+            let userBusiness = new UserBusiness();
+            userBusiness.update(_id, body, (error, result) => {
+
+                error
+                    ?
+                    response.send(Utility.generateResponse(404, "Error " + error, false, null))
+                    :
+                    response.send(Utility.generateResponse(200, 'Updated Successfully', true, result));
+            })
+        } catch (e) {
+            response.send({ "exception": e });
+        }
+    }
+
+    updateAll(request: express.Request, response: express.Response): void {
+        try {
+            let lastName = request.params.lastName;
+
+            let body = request.body;
+
+            let userBusiness = new UserBusiness();
+            userBusiness.updateAll(lastName, body, (error, result) => {
+
+                error
+                    ?
+                    response.send(Utility.generateResponse(404, "Error " + error, false, null))
+                    :
+                    response.send(Utility.generateResponse(200, 'Updated Successfully', true, result));
+            })
+        } catch (e) {
+            console.log("!!!!!!!!!!!!!!!!!!!!!!!!",e);
+            
+            response.send({ "exception": e });
+        }
+    }
 
     /**
      * @api $BASE_URL/api/v1/allUsers
@@ -106,7 +136,7 @@ class UserController implements IBaseController<UserBusiness>{
             userBusiness.retrieve((error, result) => {
                 console.log(error)
                 error ? response.status(404).send(Utility.generateResponse(404, error, false, null)) : response.send(Utility.generateResponse(200, 'All users', true, result));
-               
+
             });
         }
 
@@ -117,15 +147,15 @@ class UserController implements IBaseController<UserBusiness>{
 
     delete(request: express.Request, response: express.Response): void {
         console.log(request.body);
-        
+
         response.send({
-            url:request.url,
-            data:{
-                name:"rahul",
-                msg:"from DELETE call"
+            url: request.url,
+            data: {
+                name: "rahul",
+                msg: "from DELETE call"
             }
         });
-     }
+    }
     findById(request: express.Request, response: express.Response): void { }
 
     /**
@@ -133,69 +163,69 @@ class UserController implements IBaseController<UserBusiness>{
      * @param request 
      * @param response 
      */
-    searchCheck(request: express.Request, response: express.Response): void { 
+    searchCheck(request: express.Request, response: express.Response): void {
 
-            // ElasticInfo.getHealth((res) => {
-            //     response.send(res);
-            // })
+        // ElasticInfo.getHealth((res) => {
+        //     response.send(res);
+        // })
 
-            // ElasticInfo.getCount('users','admin',(res) => {
-            //     response.send(res);
-            // })
+        // ElasticInfo.getCount('users','admin',(res) => {
+        //     response.send(res);
+        // })
 
-            // ElasticSearchOperations.createIndex("users" , (err , res) => {
-            //     err
-            //     ? response.send(err)
-            //     : response.send(res);
+        // ElasticSearchOperations.createIndex("users" , (err , res) => {
+        //     err
+        //     ? response.send(err)
+        //     : response.send(res);
 
-            // })
+        // })
 
-            // ElasticSearchOperations.deleteIndex("users" , (err , res) => {
-            //     err
-            //     ? response.send(err)
-            //     : response.send(res);
-                
-            // })
+        // ElasticSearchOperations.deleteIndex("users" , (err , res) => {
+        //     err
+        //     ? response.send(err)
+        //     : response.send(res);
 
-            // ElasticSearchOperations.insertOne("users","admin","3",{email:"uday@gmail.com", password:"12345@Abc"   }, 
-            
-            // (err , res) => {
-            //     err
-            //     ? response.send(err)
-            //     : response.send(res);
-                
-            // })
+        // })
 
-            //  ElasticSearchOperations.deleteOne("users","admin","2",(err , res) => {
-            //     err
-            //     ? response.send(err)
-            //     : response.send(res);
-                
-            // })
-        
-            //  ElasticSearchOperations.insertAll("users","admin",DummyData.data, 
-            
-            // (err , res) => {
-            //     err
-            //     ? response.send(err)
-            //     : response.send(res);
-                
-            // })
+        // ElasticSearchOperations.insertOne("users","admin","3",{email:"uday@gmail.com", password:"12345@Abc"   }, 
+
+        // (err , res) => {
+        //     err
+        //     ? response.send(err)
+        //     : response.send(res);
+
+        // })
+
+        //  ElasticSearchOperations.deleteOne("users","admin","2",(err , res) => {
+        //     err
+        //     ? response.send(err)
+        //     : response.send(res);
+
+        // })
+
+        //  ElasticSearchOperations.insertAll("users","admin",DummyData.data, 
+
+        // (err , res) => {
+        //     err
+        //     ? response.send(err)
+        //     : response.send(res);
+
+        // })
 
 
-            let data= {
-                
-                    query: {
-                      match: { "Region": "South East" }
-                    }
-                  }
-            ElasticSearchOperations.search("users","admin",data, 
-            
-            (err , res) => {
+        let data = {
+
+            query: {
+                match: { "Region": "South East" }
+            }
+        }
+        ElasticSearchOperations.search("users", "admin", data,
+
+            (err, res) => {
                 err
-                ? response.send(err)
-                : response.send(res);
-                
+                    ? response.send(err)
+                    : response.send(res);
+
             })
     }
 

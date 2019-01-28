@@ -81,7 +81,37 @@ class UserBusiness implements IUserBusiness {
     }
 
     delete() { }
-    update() { }
+
+    update(_id: string,item:IUserModel, callback: (error: any, result: any) => void) {
+       
+
+        this._UserRepository.update(_id,item,callback);
+
+     }
+     updateAll(lastName: string,item:IUserModel, callback: (error: any, result: any) => void) {
+       
+         
+       
+
+        // this._UserRepository.updateAll(lastName,item,(err, result) => {
+        //     console.log("@@@@@@@@",result);
+        //     let updateData = [];
+        //     result.forEach(id => {
+        //         console.log(item);
+        //         this.update(id['_id'],item,(err, res) => {
+        //             if(err) return callback(err, null)
+        //             console.log(res);
+                    
+        //             updateData.push(res)
+        //         })
+        //         console.log("!!!!!!!!",updateData);
+                
+        //     },callback(null, updateData));
+        // });
+        
+
+
+     }
     findById() { }
 
     saltHashPassword(password: string): Ihash {
