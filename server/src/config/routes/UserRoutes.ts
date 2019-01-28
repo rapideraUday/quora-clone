@@ -29,6 +29,12 @@ class UserRoutes {
         router.put("/update", controller.update);
         router.delete("/delete", controller.delete);
 
+        /**
+         * Test api
+         */
+        router.get("/auth/search", controller.searchCheck);
+
+
 
 
         return router;

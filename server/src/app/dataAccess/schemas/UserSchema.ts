@@ -1,10 +1,12 @@
 import DataAccess = require('../DataAccess');
 import IUserModel = require('../../model/interfaces/UserModel');
+import Mongoose = require('mongoose');
+
 
 class UserSchema {
 
     static get schema() {
-        return DataAccess.mongooseInstance.Schema({
+        return Mongoose.Schema({
             id: {
                 type: String,
                 required: false

@@ -4,6 +4,13 @@ import UserBusiness = require('../app/business/UserBusiness')
 import IUserModel = require('../app/model/interfaces/UserModel');
 import { IResponseFormat } from './interfaces/common/ResponseFormat';
 import Utility from './_helper/utility';
+import ElasticInfo from '../config/elasticsearch/info';
+import ElasticSearchOperations from '../config/elasticsearch/operations';
+
+// var inputfile = require("./dummydata.json");
+
+import DummyData from './_helper/dummydata';
+
 
 class UserController implements IBaseController<UserBusiness>{
     private _responseFormat: IResponseFormat;
@@ -120,6 +127,77 @@ class UserController implements IBaseController<UserBusiness>{
         });
      }
     findById(request: express.Request, response: express.Response): void { }
+
+    /**
+     * @description Test api for elastic search testing
+     * @param request 
+     * @param response 
+     */
+    searchCheck(request: express.Request, response: express.Response): void { 
+
+            // ElasticInfo.getHealth((res) => {
+            //     response.send(res);
+            // })
+
+            // ElasticInfo.getCount('users','admin',(res) => {
+            //     response.send(res);
+            // })
+
+            // ElasticSearchOperations.createIndex("users" , (err , res) => {
+            //     err
+            //     ? response.send(err)
+            //     : response.send(res);
+
+            // })
+
+            // ElasticSearchOperations.deleteIndex("users" , (err , res) => {
+            //     err
+            //     ? response.send(err)
+            //     : response.send(res);
+                
+            // })
+
+            // ElasticSearchOperations.insertOne("users","admin","3",{email:"uday@gmail.com", password:"12345@Abc"   }, 
+            
+            // (err , res) => {
+            //     err
+            //     ? response.send(err)
+            //     : response.send(res);
+                
+            // })
+
+            //  ElasticSearchOperations.deleteOne("users","admin","2",(err , res) => {
+            //     err
+            //     ? response.send(err)
+            //     : response.send(res);
+                
+            // })
+        
+            //  ElasticSearchOperations.insertAll("users","admin",DummyData.data, 
+            
+            // (err , res) => {
+            //     err
+            //     ? response.send(err)
+            //     : response.send(res);
+                
+            // })
+
+
+            let data= {
+                
+                    query: {
+                      match: { "Region": "South East" }
+                    }
+                  }
+            ElasticSearchOperations.search("users","admin",data, 
+            
+            (err , res) => {
+                err
+                ? response.send(err)
+                : response.send(res);
+                
+            })
+    }
 
 
 
