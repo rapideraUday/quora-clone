@@ -1,0 +1,119 @@
+<div fxLayout="column" fxLayoutGap="10px">
+  <div fxFlex="10">
+    <div fxLayout="row">
+      <div fxFlex="90"></div>
+      <div fxFlex="10">
+        <mat-icon class="md-24" matTooltip="Close this story" (click)="onNoClick()">close</mat-icon>
+      </div>
+    </div>
+  </div>
+  <div fxFlex="10">
+    <div fxLayout="row">
+      <div fxFlex="5"></div>
+      <div fxFlex="40">
+        <a>
+          <div fxLayout="column" class="background-color"  [matMenuTriggerFor]="menu">
+            <div fxFlex="5"></div>
+            <div fxFlex="5">
+              <!-- <b>Show to Followers</b> -->
+              <div fxLayout="row">
+                <div fxFlex="5"></div>
+                <div fxFlex="56" class="showFollowers"> <b>Show to Followers</b></div>
+                <div fxFlex="5">
+                  <mat-icon class="md-24" class="icon-colour">keyboard_arrow_down</mat-icon>
+                </div>
+              </div>
+            </div>
+            <div fxFlex="5">
+              <!-- Your followers might see this question in their feed -->
+              <div fxLayout="row">
+                <div fxFlex="5"></div>
+                <div fxFlex="95" class="text">
+                  Your followers might see this question in their feed
+                </div>
+
+              </div>
+            </div>
+            <div fxFlex="5"></div>
+            <mat-menu #menu="matMenu" style="width:auto;">
+              <div fxLayout="column" fxLayoutGap="10px">
+                <div fxFlex="10"></div>
+                <div fxFlex="10">
+                  <div fxLayout="row">
+                    <div fxFlex="10"></div>
+                    <div fxFlex="10"></div>
+                    <div fxFlex="60">
+                      <div><b class="menu-heading">Show to followers</b></div>
+                      <div class="text"> Your followers might see this question in their feed</div>
+                    </div>
+                  </div>
+                </div>
+                <div fxFlex="10">
+                  <div fxLayout="row">
+                    <div fxFlex="10"></div>
+                    <div fxFlex="10"></div>
+                    <div fxFlex="60">
+                      <div><b class="menu-heading"> Dont show followers</b></div>
+                      <div class="text"> Your followers will not see this question in their feed</div>
+                    </div>
+                  </div>
+                </div>
+                <div fxFlex="10">
+                  <div fxLayout="row">
+                    <div fxFlex="10"></div>
+                    <div fxFlex="10"></div>
+                    <div fxFlex="60">
+                      <div><b class="menu-heading">Anonymouse</b></div>
+                      <div class="text"> Your identity not associated with this question</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </mat-menu>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div fxFlex="10">
+    <div fxLayout="row">
+      <div fxFlex="5"></div>
+      <div fxFlex="95">
+        <mat-form-field appearance="legacy" [ngStyle]="{'font-size.px': 15,'width':100+ '%'}">
+          <mat-label>Your Question</mat-label>
+          <input matInput placeholder="Start your question with What, How,Why etc " matTooltip="Start your question with What, How,Why etc">
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div fxFlex="10">
+    <div fxLayout="row">
+      <div fxFlex="5"></div>
+      <div fxFlex="95">
+        <mat-form-field appearance="legacy" [ngStyle]="{'font-size.px': 15,'width':100+ '%'}">
+          <mat-label>Optional</mat-label>
+          <input matInput placeholder="Optional:include link that gives context">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div fxFlex="10">
+    <div fxLayout="row" fxLayoutAlign="end center" >
+     
+      <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
+
+        <div fxFlex > <button mat-raised-button (click)="onNoClick()">Cancel</button></div>
+        
+        <div fxFlex ><button mat-raised-button color="primary">Add Question</button></div>
+      </div>
+        
+      <!-- <div fxFlex="10"> <button mat-raised-button>Cancel</button></div>
+      <div fxFlex="10"></div>
+      <div fxFlex="10"><button mat-raised-button color="primary">Add Question</button></div> -->
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,63 @@
+<!-- <h1 mat-dialog-title>Hi {{data.name}}</h1>
+<div mat-dialog-content>
+  <p>What's your favorite animal?</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.animal">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
+</div> -->
+
+<div fxLayout="column" fxLayoutGap="5px">
+  <div fxFlex="10"></div>
+  <div fxFlex="10">
+    <div fxLayout="row">
+      <div fxFlex="5"></div>
+      <div fxFlex="15" class="image-border" fxLayoutAlign="center center">
+        <img src="../../assets/images/ebooks.jpeg" height="35px" width="30px">
+      </div>
+      <div fxFlex="5"></div>
+      <div fxFlex><b class="ebook">eBooks</b></div>
+    </div>
+  </div>
+  <div fxFlex="10" class="bottom-border"></div>
+  <div fxFlex="10"></div>
+  <div fxFlex="10">
+    <div fxLayout="row">
+      <div fxFlex="5"></div>
+      <div fxFlex="95">
+        <!-- <div fxLayout="row" fxLayoutGap="10px">
+          <div fxFlex="5">
+            <mat-icon class="md-24" class="icon-color">group_add</mat-icon>
+          </div>
+          <div fxFlex="5"></div>
+          <div fxFlex="5" class="footer-text">Follow.2m</div>
+          <div fxFlex="5">1</div>
+        </div> -->
+        <div fxLayout="row">
+          <div fxFlex="50" fxLayoutAlign="start center">
+            <div fxLayout="row" fxLayoutGap="20px">
+              <div fxFlex="10">
+                <mat-icon class="md-24" class="icon-color">group_add</mat-icon>
+              </div>
+              <div fxFlex="10" class="footer-text">Follow.2m</div>
+            </div>
+          </div>
+          <div fxFlex="50" fxLayoutAlign="end center">
+              <div fxLayout="row" fxLayoutGap="20px">
+                  <div fxFlex="10">
+                    <mat-icon class="md-24" class="icon-color" matTooltip="Bookmark">bookmark_border</mat-icon>
+                  </div>
+                  <div fxFlex="10" class="footer-text">
+                      <mat-icon class="md-24" class="icon-color" matTooltip="Mute">speaker_notes_off</mat-icon>
+                  </div>
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
