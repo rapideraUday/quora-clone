@@ -108,7 +108,7 @@ class UserController implements IBaseController<UserBusiness>{
 
             let userBusiness = new UserBusiness();
             userBusiness.updateAll(lastName, body, (error, result) => {
-
+                console.log("Error: !!!!!!",error);
                 error
                     ?
                     response.send(Utility.generateResponse(404, "Error " + error, false, null))

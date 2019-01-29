@@ -10,7 +10,7 @@ class UserSchema {
 
     static get schema() {
         return mongoose.Schema({
-            _id: {
+            id: {
                 type: String,
                 required: false
             },
@@ -51,22 +51,20 @@ let User = DataAccess.mongooseConnection.model<IUserModel>("Users", UserSchema.s
 stream =   User.synchronize(),
            count = 0;
            
-            stream.on('data', function (err, doc) {
-                // console.log('data',doc);
+            // stream.on('data', function (err, doc) {
                 
-                count++;
-              });
-              stream.on('close', function () {
-                console.log('close');
+            //     count++;
+            //   });
+            //   stream.on('close', function () {
+            //     console.log('close');
                 
-                console.log('indexed ' + count + ' documents!');
-              });
-              stream.on('error', function (err) {
-                console.log(err);
+            //     console.log('indexed ' + count + ' documents!');
+            //   });
+            //   stream.on('error', function (err) {
+            //     console.log(err);
                 
-                console.log(err);
-              });
-console.log("Schema###########################",User);
+            //     console.log(err);
+            //   });
 
 
 export = User;
