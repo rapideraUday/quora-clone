@@ -40,7 +40,13 @@ class UserSchema {
             },
             salt:{
                 type:String
-            }
+            },
+            reset_password_token: {
+                type: String
+              },
+              reset_password_expires: {
+                type: Number
+              }
         }).plugin(mongoosastic,{
             esClient: esClient
         });

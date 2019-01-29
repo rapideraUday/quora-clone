@@ -1,4 +1,6 @@
 import express = require('express');
+import path = require('path');
+
 import IBaseController = require('./interfaces/base');
 import UserBusiness = require('../app/business/UserBusiness')
 import IUserModel = require('../app/model/interfaces/UserModel');
@@ -227,6 +229,31 @@ class UserController implements IBaseController<UserBusiness>{
                     : response.send(res);
 
             })
+    }
+
+
+    renderForgotPasswordTemplate(request: express.Request, response: express.Response): void{
+        return response.sendFile(path.resolve('/home/rapidera/RaulD_Workspace/MEAN/quora-clone/server/src/public/forgot-password.html'));
+    }
+
+    renderResetPasswordTemplate(request: express.Request, response: express.Response): void{
+        return response.sendFile(path.resolve('/home/rapidera/RaulD_Workspace/MEAN/quora-clone/server/src/public/reset-password.html'));
+    }
+    forgotPassword(request: express.Request, response: express.Response): void {
+        try {
+            let email = request.body.email;
+            let userBusiness = new UserBusiness();
+            userBusiness.forgotPassword(email, (error, result) => {
+                error
+                    ?
+                    response.send(Utility.generateResponse(404, error, false, null))
+                    :
+                    response.send(Utility.generateResponse(200, 'Loging out Sucessfully', true, result));
+            })
+
+        } catch (error) {
+            response.send({ "Exception": error });
+        }
     }
 
 

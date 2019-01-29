@@ -23,7 +23,7 @@ class UserRoutes {
         /**
         * @description allUsers route is protected with validate user guard
         */
-        router.get("/auth/allUsers", controller.retrieve);
+        router.get("/auth/allUsers",ValidateUser.auth, controller.retrieve);
         router.get("/auth/logout", ValidateUser.auth, controller.logout);
 
         router.put("/update", controller.update);
@@ -37,6 +37,13 @@ class UserRoutes {
         router.put('/auth/update/:_id',controller.update);
         
         router.put('/auth/updateall/:lastName', controller.updateAll);
+
+        router.post('/auth/forgot_password',controller.forgotPassword);
+
+        router.get('/auth/forgot_password',controller.renderForgotPasswordTemplate);
+
+        router.get('/auth/reset_password',controller.renderResetPasswordTemplate);
+
 
 
 

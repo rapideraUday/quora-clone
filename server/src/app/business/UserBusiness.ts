@@ -1,6 +1,13 @@
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const async = require('async');
+const nodemailer = require('nodemailer');
+const MailerEmail = process.env.MAILER_EMAIL_ID || 'auth_email_address@gmail.com';
+const pass = process.env.MAILER_PASSWORD || 'auth_email_pass';
+const path = require('path');
+const hbs = require('nodemailer-express-handlebars');
+
+
 
 import UserRepository = require('../repository/UserRepository');
 import IUserBusiness = require('../business/interfaces/UserBusiness');
@@ -13,6 +20,8 @@ interface Ihash {
 
 class UserBusiness implements IUserBusiness {
     saltLength: number = 10;
+
+
 
     private _UserRepository: UserRepository;
 
@@ -90,7 +99,7 @@ class UserBusiness implements IUserBusiness {
     }
     updateAll(lastName: string, item: IUserModel, callback: (error: any, result: any) => void) {
         this._UserRepository.updateAll(lastName, item, (err, result) => {
-            if(err) return callback(err, null);
+            if (err) return callback(err, null);
             let updateData = [];
             const waitFor = (ms) => new Promise(r => setTimeout(r, ms))
             const asyncForEach = async (array, cb) => {
@@ -108,11 +117,147 @@ class UserBusiness implements IUserBusiness {
                     })
 
                 })
-                 callback(null, updateData);
+                callback(null, updateData);
             }
             start()
         });
     }
+
+    forgotPassword(email: string, callback: (error: any, result: any) => void) {
+        const smtpTransport = nodemailer.createTransport({
+            service: process.env.MAILER_SERVICE_PROVIDER || 'Gmail',
+            auth: {
+                user: email,
+                pass: pass
+            }
+        });
+
+        const handlebarsOptions = {
+            viewEngine: 'handlebars',
+            viewPath: path.resolve('./api/templates/'),
+            extName: '.html'
+        };
+
+        smtpTransport.use('compile', hbs(handlebarsOptions));
+
+        async.waterfall([
+            (done) => {
+                this._UserRepository.findOne({email}, (err, user) => {
+
+                    if (user) {
+                        console.log(user);
+                        
+                        done(err, user);
+                    } else {
+                        done('User not found.');
+                    }
+                })
+            },
+            (user, done) => {
+                // create the random token
+                crypto.randomBytes(20, (err, buffer) => {
+                    const token = buffer.toString('hex');
+                    done(err, user, token);
+                });
+            },
+            (user, token, done) => {
+                   const updateData =  { 
+                       reset_password_token: token, 
+                        reset_password_expires: Date.now() + 86400000
+                    }
+                this.update(user._id ,updateData,(err, new_user) =>{
+                    done(err, token, new_user);
+                    });
+                  
+            },
+            (token, user, done) => {
+                const data = {
+                    to: user.email,
+                    from: MailerEmail,
+                    template: 'forgot-password-email',
+                    subject: 'Password help has arrived!',
+                    context: {
+                        url: 'http://localhost:3000/auth/reset_password?token=' + token,
+                        name: user.fullName.split(' ')[0]
+                    }
+                };
+
+                smtpTransport.sendMail(data, (err) => {
+                    if (!err) {
+                        // return res.json({ message: 'Kindly check your email for further instructions' });
+                        return callback(null , 'Kindly check your email for further instructions');
+                    } else {
+                        return done(err);
+                    }
+                });
+            }
+        ], (err) => {
+            // return res.status(422).json({ message: err });
+            return callback(err , null);
+        });
+
+    }
+
+    resetPassword (token: string, date: number){
+
+        // this._UserRepository.findOne({
+        //           reset_password_token:token,
+        //           reset_password_expires: {
+        //             $gt: Date.now()
+        //           }, (err, result) => {
+        //             if(err)
+        // })
+    }
+    // const reset_password = function(req, res, next) {
+    //     User.findOne({
+    //       reset_password_token: req.body.token,
+    //       reset_password_expires: {
+    //         $gt: Date.now()
+    //       }
+    //     }).exec(function(err, user) {
+    //       if (!err && user) {
+    //         if (req.body.newPassword === req.body.verifyPassword) {
+    //           user.hash_password = bcrypt.hashSync(req.body.newPassword, 10);
+    //           user.reset_password_token = undefined;
+    //           user.reset_password_expires = undefined;
+    //           user.save(function(err) {
+    //             if (err) {
+    //               return res.status(422).send({
+    //                 message: err
+    //               });
+    //             } else {
+    //               var data = {
+    //                 to: user.email,
+    //                 from: email,
+    //                 template: 'reset-password-email',
+    //                 subject: 'Password Reset Confirmation',
+    //                 context: {
+    //                   name: user.fullName.split(' ')[0]
+    //                 }
+    //               };
+      
+    //               smtpTransport.sendMail(data, function(err) {
+    //                 if (!err) {
+    //                   return res.json({ message: 'Password reset' });
+    //                 } else {
+    //                   return done(err);
+    //                 }
+    //               });
+    //             }
+    //           });
+    //         } else {
+    //           return res.status(422).send({
+    //             message: 'Passwords do not match'
+    //           });
+    //         }
+    //       } else {
+    //         return res.status(400).send({
+    //           message: 'Password reset token is invalid or has expired.'
+    //         });
+    //       }
+    //     });
+    //   };
+
     findById() { }
 
     saltHashPassword(password: string): Ihash {

@@ -26,6 +26,14 @@ class UserRepository extends RepositoryBase<IUserModel>{
             return callback(null, docs);
         })
     }
+    findOne(item: Object, callback: (error: any, result: any) => void) {
+        var query = UserSchema.findOne(item);
+        query.exec((err, docs) => {
+            if(!docs || docs.length === 0) return callback('No record found', null);
+            if (err) return callback(err, null);
+            return callback(null, docs);
+        })
+    }
 }
 Object.seal(UserRepository);
 export = UserRepository;
