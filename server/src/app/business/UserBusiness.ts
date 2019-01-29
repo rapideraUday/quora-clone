@@ -82,36 +82,37 @@ class UserBusiness implements IUserBusiness {
 
     delete() { }
 
-    update(_id: string,item:IUserModel, callback: (error: any, result: any) => void) {
-       
-
-        this._UserRepository.update(_id,item,callback);
-
-     }
-     updateAll(lastName: string,item:IUserModel, callback: (error: any, result: any) => void) {
-       
-         
-       
-
-        // this._UserRepository.updateAll(lastName,item,(err, result) => {
-        //     console.log("@@@@@@@@",result);
-        //     let updateData = [];
-        //     result.forEach(id => {
-        //         console.log(item);
-        //         this.update(id['_id'],item,(err, res) => {
-        //             if(err) return callback(err, null)
-        //             console.log(res);
-                    
-        //             updateData.push(res)
-        //         })
-        //         console.log("!!!!!!!!",updateData);
-                
-        //     },callback(null, updateData));
-        // });
-        
+    update(_id: string, item: IUserModel, callback: (error: any, result: any) => void) {
 
 
-     }
+        this._UserRepository.update(_id, item, callback);
+
+    }
+    updateAll(lastName: string, item: IUserModel, callback: (error: any, result: any) => void) {
+        this._UserRepository.updateAll(lastName, item, (err, result) => {
+            if(err) return callback(err, null);
+            let updateData = [];
+            const waitFor = (ms) => new Promise(r => setTimeout(r, ms))
+            const asyncForEach = async (array, cb) => {
+                for (let index = 0; index < array.length; index++) {
+                    await cb(array[index], index, array)
+                }
+            }
+
+            const start = async () => {
+                await asyncForEach(result, async (id) => {
+                    await waitFor(50)
+                    this.update(id, item, (err, res) => {
+                        if (err) return callback(err, null)
+                        updateData.push(res)
+                    })
+
+                })
+                 callback(null, updateData);
+            }
+            start()
+        });
+    }
     findById() { }
 
     saltHashPassword(password: string): Ihash {
