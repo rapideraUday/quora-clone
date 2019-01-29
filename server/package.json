@@ -29,7 +29,9 @@
     "mongoosastic": "^4.4.1",
     "mongoose": "^5.4.6",
     "nodemon": "1.11.0",
-    "validator": "^10.11.0"
+    "validator": "^10.11.0",
+    "nodemailer": "^4.0.1",
+    "nodemailer-express-handlebars": "^2.0.0"
   },
   "devDependencies": {
     "@types/mocha": "2.2.41",
