@@ -7,7 +7,7 @@
     "build": "tsc",
     "start": "tsc --watch & nodemon dist",
     "test": "tsc && mocha dist/**/*.spec.js",
-    "debugger": "tsc --watch & nodemon --inspect-brk dist",
+    "debugger": "tsc --watch & ndb nodemon dist",
     "lint": "eslint src --ext ts",
     "tsc": "tsc"
   },

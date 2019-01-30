@@ -14,7 +14,7 @@ class DataAccess {
         if (this.mongooseInstance) return this.mongooseInstance;
         this.mongooseConnection = Mongoose.connection;
         
-        this.mongooseInstance = Mongoose.connect(Constants.DB_CONNECTION_STRING, { useNewUrlParser: true });
+        this.mongooseInstance = Mongoose.connect(Constants.DB_CONNECTION_STRING, { useCreateIndex: true, useNewUrlParser: true });
 
         this.mongooseConnection.once("open", () => {
             console.log("Ready to Operate");
@@ -49,7 +49,7 @@ class DataAccess {
         });
 
         process.on('uncaughtException',(exception) => {
-            console.log("uncaughtException: ------",exception);
+            console.log("----------------------------UncaughtException: -----------------------",exception);
         })
         return this.mongooseInstance;
     }

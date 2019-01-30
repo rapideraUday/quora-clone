@@ -23,7 +23,8 @@ class UserRoutes {
         /**
         * @description allUsers route is protected with validate user guard
         */
-        router.get("/auth/allUsers",ValidateUser.auth, controller.retrieve);
+        // router.get("/auth/allUsers",ValidateUser.auth, controller.retrieve);
+        router.get("/allUsers", controller.retrieve);
         router.get("/auth/logout", ValidateUser.auth, controller.logout);
 
         router.put("/update", controller.update);

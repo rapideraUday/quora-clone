@@ -1,12 +1,9 @@
 const mongoosastic = require('mongoosastic');
-const esClient = require('../../../config/elasticsearch/connection')
-
 import mongoose = require('mongoose');
-
 
 import DataAccess = require('../DataAccess');
 import IUserModel = require('../../model/interfaces/UserModel');
-
+const esClient = require('../../../config/elasticsearch/connection')
 let Mongoose = mongoose.Schema;
 class UserSchema {
 
