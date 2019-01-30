@@ -11,6 +11,9 @@ interface UserModel extends mongoose.Document {
     salt?: string;
     reset_password_token?: string;
     reset_password_expires?: number;
+    createdAt?: Date; 
+    updatedAt?: Date;
+    lastLogin?: Date;
 }
 
 export = UserModel;
