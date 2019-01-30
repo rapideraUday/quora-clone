@@ -9,6 +9,8 @@ import Utility from './_helper/utility';
 import ElasticInfo from '../config/elasticsearch/info';
 import ElasticSearchOperations from '../config/elasticsearch/operations';
 
+
+
 // var inputfile = require("./dummydata.json");
 
 import DummyData from './_helper/dummydata';
@@ -233,17 +235,22 @@ class UserController implements IBaseController<UserBusiness>{
 
 
     renderForgotPasswordTemplate(request: express.Request, response: express.Response): void{
-        return response.sendFile(path.resolve('/home/rapidera/RaulD_Workspace/MEAN/quora-clone/server/src/public/forgot-password.html'));
+        return response.sendFile(path.resolve('/home/uday/projects/Angular-Projects/quora-clone/server/src/public/forgot-password.html'));
     }
 
     renderResetPasswordTemplate(request: express.Request, response: express.Response): void{
-        return response.sendFile(path.resolve('/home/rapidera/RaulD_Workspace/MEAN/quora-clone/server/src/public/reset-password.html'));
+        return response.sendFile(path.resolve('/home/uday/projects/Angular-Projects/quora-clone/server/src/public/reset-password.html'));
     }
     forgotPassword(request: express.Request, response: express.Response): void {
+        console.log("request", request);
+        
         try {
-            let email = request.body.email;
-            let userBusiness = new UserBusiness();
+            const email = request.body.email;
+            debugger
+            const userBusiness = new UserBusiness();
             userBusiness.forgotPassword(email, (error, result) => {
+                console.log(error);
+                
                 error
                     ?
                     response.send(Utility.generateResponse(404, error, false, null))
