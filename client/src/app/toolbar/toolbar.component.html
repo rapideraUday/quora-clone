@@ -1,13 +1,14 @@
-<div fxLayout="row">
-  <div fxFlex>
+<!-- <div fxLayout="row">
+  <div fxFlex> -->
+
     <mat-card style="width:auto; height: 40%;">
       <div fxLayout="column">
-        <!-- <div fxFlex="5"></div> -->
+        
         <div fxFlex>
-          <div fxLayout="row">
+          <div fxLayout="row" fxLayout.xs="column">
             <div fxFlex="10"></div>
             <div fxFlex>
-              <div fxLayout="row" fxLayoutGap="2px">
+              <div fxLayout="row" style="flex-wrap: wrap;" fxLayoutGap="2px" fxLayout.xs="column">
                 <div fxFlex="10">
                   <img src="../../assets/images/quora.png" width="80px" height="23px">
                 </div>
@@ -36,7 +37,7 @@
                   </div>
                 </div>
                 <div fxFlex="1"></div>
-                <div fxFlex="40">
+                <div fxFlex="40" fxShow.sm="false"  fxShow.xs="false" fxShow="true">
                   <mat-form-field appearance="outline" [ngStyle]="{'font-size.px': 10,'width':100+ '%'}">
                     <mat-label>Search Quora</mat-label>
                     <input matInput placeholder="Search Quora">
@@ -56,8 +57,8 @@
 
           </div>
         </div>
-        <!-- <div fxFlex="5"></div> -->
+        
       </div>
     </mat-card>
-  </div>
-</div>
+  <!-- </div>
+</div> -->
