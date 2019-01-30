@@ -1,0 +1,9 @@
+1. To solve EADDRINUSE Issue:
+    step1: $sudo netstat -plunt |grep :3000
+    tcp6       0      0 :::3000                 :::*                    LISTEN      25315/node
+
+    step2: kill -9 25315
+
+    step3: npm start
+
+2.
