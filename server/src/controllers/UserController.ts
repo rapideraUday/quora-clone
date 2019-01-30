@@ -242,13 +242,34 @@ class UserController implements IBaseController<UserBusiness>{
         return response.sendFile(path.resolve('/home/uday/projects/Angular-Projects/quora-clone/server/src/public/reset-password.html'));
     }
     forgotPassword(request: express.Request, response: express.Response): void {
-        console.log("request", request);
-        
         try {
             const email = request.body.email;
-            debugger
             const userBusiness = new UserBusiness();
             userBusiness.forgotPassword(email, (error, result) => {
+                console.log(error);
+                
+                error
+                    ?
+                    response.send(Utility.generateResponse(404, error, false, null))
+                    :
+                    response.send(Utility.generateResponse(200, 'Loging out Sucessfully', true, result));
+            })
+
+        } catch (error) {
+            response.send({ "Exception": error });
+        }
+    }
+
+    resetPassword(request: express.Request, response: express.Response): void {
+        try {
+            const data = {
+                token: request.body.token.toString(),
+                date: Date.now()
+            }
+            const userBusiness = new UserBusiness();
+            console.log("resetPassword",data);
+            
+            userBusiness.resetPassword(data, (error, result) => {
                 console.log(error);
                 
                 error

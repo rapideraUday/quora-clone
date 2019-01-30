@@ -15,8 +15,6 @@ class UserRoutes {
     get routes() {
         var controller = this._UserController;
 
-
-
         router.post("/user", controller.create);
         router.post("/login", controller.login);
 
@@ -40,6 +38,7 @@ class UserRoutes {
         router.put('/auth/updateall/:lastName', controller.updateAll);
 
         router.post('/auth/forgot_password',controller.forgotPassword);
+        router.post('/auth/reset_password',controller.resetPassword);
 
         router.get('/auth/forgot_password',controller.renderForgotPasswordTemplate);
 

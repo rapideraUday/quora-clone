@@ -9,8 +9,8 @@ import UserRepository = require('../repository/UserRepository');
 import IUserBusiness = require('../business/interfaces/UserBusiness');
 import IUserModel = require('../model/interfaces/UserModel');
 
-const MailerEmail = process.env.MAILER_EMAIL_ID || 'udayaditya.singh@gmail.com';
-const pass = process.env.MAILER_PASSWORD || 'justice2859';
+const MailerEmail = process.env.MAILER_EMAIL_ID || 'not defined';
+const pass = process.env.MAILER_PASSWORD || 'not defined';
 
 interface Ihash {
     password: string;
@@ -124,7 +124,7 @@ class UserBusiness implements IUserBusiness {
 
     forgotPassword(email: string, callback: (error: any, result: any) => void) {
         console.log(email);
-        
+
         const smtpTransport = nodemailer.createTransport({
             service: process.env.MAILER_SERVICE_PROVIDER || 'Gmail',
             auth: {
@@ -134,7 +134,7 @@ class UserBusiness implements IUserBusiness {
         });
 
         console.log(smtpTransport);
-        
+
 
         const handlebarsOptions = {
             viewEngine: 'handlebars',
@@ -146,11 +146,11 @@ class UserBusiness implements IUserBusiness {
 
         async.waterfall([
             (done) => {
-                this._UserRepository.findOne({email}, (err, user) => {
+                this._UserRepository.findOne({ email }, (err, user) => {
 
                     if (user) {
                         console.log(user);
-                        
+
                         done(err, user);
                     } else {
                         done('User not found.');
@@ -165,14 +165,14 @@ class UserBusiness implements IUserBusiness {
                 });
             },
             (user, token, done) => {
-                   const updateData =  { 
-                       reset_password_token: token, 
-                        reset_password_expires: Date.now() + 86400000
-                    }
-                this.update(user._id ,updateData,(err, new_user) =>{
+                const updateData = {
+                    reset_password_token: token,
+                    reset_password_expires: Date.now() + 86400000
+                }
+                this.update(user._id, updateData, (err, new_user) => {
                     done(err, token, new_user);
-                    });
-                  
+                });
+
             },
             (token, user, done) => {
                 const data = {
@@ -189,7 +189,7 @@ class UserBusiness implements IUserBusiness {
                 smtpTransport.sendMail(data, (err) => {
                     if (!err) {
                         // return res.json({ message: 'Kindly check your email for further instructions' });
-                        return callback(null , 'Kindly check your email for further instructions');
+                        return callback(null, 'Kindly check your email for further instructions');
                     } else {
                         return done(err);
                     }
@@ -197,20 +197,22 @@ class UserBusiness implements IUserBusiness {
             }
         ], (err) => {
             // return res.status(422).json({ message: err });
-            return callback(err , null);
+            return callback(err, null);
         });
 
     }
 
-    resetPassword (token: string, date: number){
+    resetPassword(data: Object, callback: (error: any, result: any)=> void){
+        console.log(typeof data['date']);
+        console.log(process.env.MAILER_EMAIL_ID);
+        console.log(process.env.MAILER_PASSWORD);
+        
 
-        // this._UserRepository.findOne({
-        //           reset_password_token:token,
-        //           reset_password_expires: {
-        //             $gt: Date.now()
-        //           }, (err, result) => {
-        //             if(err)
-        // })
+        this._UserRepository.findByToken(data['token'], (err, user) => {
+            if(err) return callback(err, null);
+            console.log(user);
+            
+        })
 
         // this._UserRepository.findOne({
         //     reset_password_token: req.body.token,
@@ -238,7 +240,7 @@ class UserBusiness implements IUserBusiness {
         //                 name: user.fullName.split(' ')[0]
         //               }
         //             };
-        
+
         //             smtpTransport.sendMail(data, function(err) {
         //               if (!err) {
         //                 return res.json({ message: 'Password reset' });
@@ -261,7 +263,7 @@ class UserBusiness implements IUserBusiness {
         //   });
         // };
     }
-   
+
 
     findById() { }
 
