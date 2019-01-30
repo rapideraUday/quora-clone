@@ -3,13 +3,15 @@ const esClient = require('../../../config/elasticsearch/connection')
 
 import mongoose = require('mongoose');
 
+
 import DataAccess = require('../DataAccess');
 import IUserModel = require('../../model/interfaces/UserModel');
 
+let Mongoose = mongoose.Schema;
 class UserSchema {
 
     static get schema() {
-        return mongoose.Schema({
+        return new Mongoose({
             id: {
                 type: String,
                 required: false
@@ -17,60 +19,60 @@ class UserSchema {
             firstName: {
                 type: String,
                 required: true,
-                trim:true
+                trim: true
             },
             lastName: {
                 type: String,
                 required: true,
-                trim:true
+                trim: true
             },
             email: {
                 type: String,
                 required: true,
-                unique : true,
-                trim:true
+                unique: true,
+                trim: true
             },
             password: {
                 type: String,
                 required: true,
-                trim:true
+                trim: true
             },
-            token:{
-                type:String,
+            token: {
+                type: String,
             },
-            salt:{
-                type:String
+            salt: {
+                type: String
             },
             reset_password_token: {
                 type: String
-              },
-              reset_password_expires: {
+            },
+            reset_password_expires: {
                 type: Number
-              }
-        }).plugin(mongoosastic,{
-            esClient: esClient
-        });
+            }
+        }, { timestamp: true })
+        // .plugin(mongoosastic, {
+        //     esClient: esClient
+        // });
     }
 }
 
-let User = DataAccess.mongooseConnection.model<IUserModel>("Users", UserSchema.schema),
-stream =   User.synchronize(),
-           count = 0;
-           
-            // stream.on('data', function (err, doc) {
-                
-            //     count++;
-            //   });
-            //   stream.on('close', function () {
-            //     console.log('close');
-                
-            //     console.log('indexed ' + count + ' documents!');
-            //   });
-            //   stream.on('error', function (err) {
-            //     console.log(err);
-                
-            //     console.log(err);
-            //   });
+let User = DataAccess.mongooseConnection.model<IUserModel>("User", UserSchema.schema.plugin(mongoosastic, {
+    esClient: esClient
+})),
+    stream = User.synchronize(),
+    count = 0;
+
+stream.on('data', function (err, doc) {
+    console.log("--------------doc--------------", doc);
+    count++;
+});
+stream.on('close', function () {
+    console.log('close');
+    console.log('indexed ' + count + ' documents!');
+});
+stream.on('error', function (err) {
+    console.log("-----------------------Error : -----------------------------", err);
+});
 
 
 export = User;

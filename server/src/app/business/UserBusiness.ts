@@ -2,16 +2,15 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const async = require('async');
 const nodemailer = require('nodemailer');
-const MailerEmail = process.env.MAILER_EMAIL_ID || 'auth_email_address@gmail.com';
-const pass = process.env.MAILER_PASSWORD || 'auth_email_pass';
 const path = require('path');
 const hbs = require('nodemailer-express-handlebars');
-
-
 
 import UserRepository = require('../repository/UserRepository');
 import IUserBusiness = require('../business/interfaces/UserBusiness');
 import IUserModel = require('../model/interfaces/UserModel');
+
+const MailerEmail = process.env.MAILER_EMAIL_ID || 'auth_email_address@gmail.com';
+const pass = process.env.MAILER_PASSWORD || 'auth_email_pass';
 
 interface Ihash {
     password: string;
