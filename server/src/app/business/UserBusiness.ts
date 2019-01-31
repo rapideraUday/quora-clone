@@ -123,8 +123,6 @@ class UserBusiness implements IUserBusiness {
     }
 
     forgotPassword(email: string, callback: (error: any, result: any) => void) {
-        console.log(email);
-
         const smtpTransport = nodemailer.createTransport({
             service: process.env.MAILER_SERVICE_PROVIDER || 'Gmail',
             auth: {
@@ -132,10 +130,6 @@ class UserBusiness implements IUserBusiness {
                 pass: pass
             }
         });
-
-        console.log(smtpTransport);
-
-
         const handlebarsOptions = {
             viewEngine: 'handlebars',
             viewPath: path.resolve('./src/templates'),
@@ -149,8 +143,6 @@ class UserBusiness implements IUserBusiness {
                 this._UserRepository.findOne({ email }, (err, user) => {
 
                     if (user) {
-                        console.log(user);
-
                         done(err, user);
                     } else {
                         done('User not found.');
@@ -210,10 +202,6 @@ class UserBusiness implements IUserBusiness {
                 pass: pass
             }
         });
-
-        console.log(smtpTransport);
-
-
         const handlebarsOptions = {
             viewEngine: 'handlebars',
             viewPath: path.resolve('./src/templates'),

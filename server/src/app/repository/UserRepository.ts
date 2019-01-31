@@ -29,8 +29,6 @@ class UserRepository extends RepositoryBase<IUserModel>{
     findOne(item: Object, callback: (error: any, result: any) => void) {
         var query = UserSchema.findOne(item);
         query.exec((err, docs) => {
-            console.log("docs",docs);
-            
             if(!docs || docs.length === 0) return callback('No record found', null);
             if (err) return callback(err, null);
             return callback(null, docs);

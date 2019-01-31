@@ -9,8 +9,6 @@ import Utility from './_helper/utility';
 import ElasticInfo from '../config/elasticsearch/info';
 import ElasticSearchOperations from '../config/elasticsearch/operations';
 
-
-
 // var inputfile = require("./dummydata.json");
 
 import DummyData from './_helper/dummydata';
@@ -112,7 +110,6 @@ class UserController implements IBaseController<UserBusiness>{
 
             let userBusiness = new UserBusiness();
             userBusiness.updateAll(lastName, body, (error, result) => {
-                console.log("Error: !!!!!!",error);
                 error
                     ?
                     response.send(Utility.generateResponse(404, "Error " + error, false, null))
@@ -120,8 +117,6 @@ class UserController implements IBaseController<UserBusiness>{
                     response.send(Utility.generateResponse(200, 'Updated Successfully', true, result));
             })
         } catch (e) {
-            console.log("!!!!!!!!!!!!!!!!!!!!!!!!",e);
-            
             response.send({ "exception": e });
         }
     }
@@ -138,7 +133,6 @@ class UserController implements IBaseController<UserBusiness>{
 
             const userBusiness = new UserBusiness();
             userBusiness.retrieve((error, result) => {
-                console.log(error)
                 error ? response.status(404).send(Utility.generateResponse(404, error, false, null)) : response.send(Utility.generateResponse(200, 'All users', true, result));
 
             });
@@ -150,8 +144,6 @@ class UserController implements IBaseController<UserBusiness>{
     }
 
     delete(request: express.Request, response: express.Response): void {
-        console.log(request.body);
-
         response.send({
             url: request.url,
             data: {
@@ -246,8 +238,6 @@ class UserController implements IBaseController<UserBusiness>{
             const email = request.body.email;
             const userBusiness = new UserBusiness();
             userBusiness.forgotPassword(email, (error, result) => {
-                console.log(error);
-                
                 error
                     ?
                     response.send(Utility.generateResponse(404, error, false, null))
@@ -265,8 +255,6 @@ class UserController implements IBaseController<UserBusiness>{
             const {newPassword, verifyPassword, token } = request.body;
             const userBusiness = new UserBusiness();
             userBusiness.resetPassword(newPassword, verifyPassword, token, (error, result) => {
-                console.log(error);
-                
                 error
                     ?
                     response.send(Utility.generateResponse(404, error, false, null))
