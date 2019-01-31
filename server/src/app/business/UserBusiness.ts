@@ -10,7 +10,7 @@ import IUserBusiness = require('../business/interfaces/UserBusiness');
 import IUserModel = require('../model/interfaces/UserModel');
 
 const MailerEmail = process.env.MAILER_EMAIL_ID || 'not defined';
-const pass = process.env.MAILER_PASSWORD || 'not defined';
+const MailerPassword = process.env.MAILER_PASSWORD || 'not defined';
 
 interface Ihash {
     password: string;
@@ -24,7 +24,7 @@ class UserBusiness implements IUserBusiness {
         service: process.env.MAILER_SERVICE_PROVIDER || 'Gmail',
         auth: {
             user: MailerEmail,
-            pass: pass
+            pass: MailerPassword
         }
     });
     handlebarsOptions = {
@@ -49,6 +49,9 @@ class UserBusiness implements IUserBusiness {
             (done) => {
                 this._UserRepository.findUserByEmail(email, (error, result) => {
                     if (result) {
+                        if (!result.isVerified) {
+                            return done('Your account has not been verified', null)
+                        }
                         const userPassword: Ihash = this.hashPasswordWithSalt(password, result.salt);
                         if (result.password === userPassword.password) {
                             const payload = { _id: result._id };
@@ -131,7 +134,7 @@ class UserBusiness implements IUserBusiness {
         });
     }
 
-    smtpWithOptions(){
+    smtpWithOptions() {
         return this.smtpTransport.use('compile', hbs(this.handlebarsOptions));
     }
 
@@ -201,7 +204,7 @@ class UserBusiness implements IUserBusiness {
                     user.hash_password = this.saltHashPassword(newPassword);
                     user.reset_password_token = undefined;
                     user.reset_password_expires = undefined;
-                    user.save( (err) => {
+                    user.save((err) => {
                         if (err) {
                             callback(err, null);
                         } else {
@@ -225,10 +228,10 @@ class UserBusiness implements IUserBusiness {
                         }
                     });
                 } else {
-                    return callback('Passwords do not match',null )
+                    return callback('Passwords do not match', null)
                 }
             } else {
-                return callback('Password reset token is invalid or has expired.',null )
+                return callback('Password reset token is invalid or has expired.', null)
             }
         })
     }
@@ -255,6 +258,38 @@ class UserBusiness implements IUserBusiness {
             password: hashedPassword
         };
         return encryptedValues;
+    }
+
+    sendConfirmation(verificationToken: string, callback: (error: any, result: any) => void) {
+        this._UserRepository.findOne({ verificationToken }, (err, user) => {
+            if (!user) return callback('We were unable to find a user for this token', null);
+            if (user.isVerified) return callback('This user has already been verified', null);
+
+            user.isVerified = true;
+            user.save(function (err) {
+                if (err) return callback(err, null);
+                return callback(null, 'The account has been verified. Please log in.');
+            });
+        })
+    }
+
+    resendConfirmation(email: string, callback: (error: any, result: any) => void) {
+        this._UserRepository.findOne({email}, (err, user) => {
+            if (!user) return callback('We were unable to find a user with that email', null);
+            if (user.isVerified) return callback('This account has already been verified. Please log in', null);
+            if(user){
+                user.verificationToken = crypto.randomBytes(16).toString('hex');
+            }
+            if(user.verificationToken){
+                user.save((err) => {
+                    if(err) return callback(err, null);
+                    return callback(null, user);
+
+                })
+            }
+
+
+        })
     }
 }
 

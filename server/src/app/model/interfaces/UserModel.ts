@@ -15,6 +15,8 @@ interface UserModel extends mongoose.Document {
     updatedAt?: Date;
     lastLogin?: Date;
     isVerified?: Boolean;
+    verificationToken?: string;
+    isAdmin?:Boolean
 }
 
 export = UserModel;

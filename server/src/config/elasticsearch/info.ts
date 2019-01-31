@@ -1,6 +1,5 @@
 const client = require('./connection');
 
-
 export default class ElasticInfo{
 
     static getHealth(callback){
@@ -20,8 +19,5 @@ export default class ElasticInfo{
              callback(`No. of ${type} : ${resp.count}`);
           });
     }
-
-    
-
 
 }

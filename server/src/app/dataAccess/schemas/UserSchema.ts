@@ -60,6 +60,13 @@ class UserSchema {
                 type: Boolean, 
                 default: false 
             },
+            verificationToken:{
+                type: String
+            },
+            isAdmin:{
+                type: Boolean, 
+                default: false  
+            }
         }, {timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt'}})
     }
 }

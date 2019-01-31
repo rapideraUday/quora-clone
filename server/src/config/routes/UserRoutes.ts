@@ -44,7 +44,9 @@ class UserRoutes {
 
         router.get('/auth/reset_password',controller.renderResetPasswordTemplate);
 
-        router.post('confirmation', controller.emailValidation)
+        // router.post('/confirmation', controller.sendConfirmation)
+        router.get('/confirmation/:verificationToken', controller.sendConfirmation)
+        router.post('/resend', controller.resendConfirmation)
 
 
 
