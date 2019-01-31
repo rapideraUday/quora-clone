@@ -188,7 +188,6 @@ class UserBusiness implements IUserBusiness {
 
                 smtpTransport.sendMail(data, (err) => {
                     if (!err) {
-                        // return res.json({ message: 'Kindly check your email for further instructions' });
                         return callback(null, 'Kindly check your email for further instructions');
                     } else {
                         return done(err);
@@ -202,66 +201,64 @@ class UserBusiness implements IUserBusiness {
 
     }
 
-    resetPassword(data: Object, callback: (error: any, result: any)=> void){
-        console.log(typeof data['date']);
-        console.log(process.env.MAILER_EMAIL_ID);
-        console.log(process.env.MAILER_PASSWORD);
-        
+    resetPassword(newPassword: string, verifyPassword: string, token: string, callback: (error: any, result: any) => void) {
 
-        this._UserRepository.findByToken(data['token'], (err, user) => {
-            if(err) return callback(err, null);
-            console.log(user);
-            
+        const smtpTransport = nodemailer.createTransport({
+            service: process.env.MAILER_SERVICE_PROVIDER || 'Gmail',
+            auth: {
+                user: MailerEmail,
+                pass: pass
+            }
+        });
+
+        console.log(smtpTransport);
+
+
+        const handlebarsOptions = {
+            viewEngine: 'handlebars',
+            viewPath: path.resolve('./src/templates'),
+            extName: '.html'
+        };
+
+        smtpTransport.use('compile', hbs(handlebarsOptions));
+
+        this._UserRepository.findResetPasswordToken(token, (err, user) => {
+            if (err) return callback(err, null);
+            if (!err && user) {
+                if (newPassword === verifyPassword) {
+                    user.hash_password = this.saltHashPassword(newPassword);
+                    user.reset_password_token = undefined;
+                    user.reset_password_expires = undefined;
+                    user.save( (err) => {
+                        if (err) {
+                            callback(err, null);
+                        } else {
+                            var data = {
+                                to: user.email,
+                                from: MailerEmail,
+                                template: 'reset-password-email',
+                                subject: 'Password Reset Confirmation',
+                                context: {
+                                    name: user.firstName.split(' ')[0]
+                                }
+                            };
+
+                            smtpTransport.sendMail(data, (err) => {
+                                if (!err) {
+                                    return callback(null, 'Password Successfully reset. Kindly check your email for further instructions');
+                                } else {
+                                    return callback(err, null)
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    return callback('Passwords do not match',null )
+                }
+            } else {
+                return callback('Password reset token is invalid or has expired.',null )
+            }
         })
-
-        // this._UserRepository.findOne({
-        //     reset_password_token: req.body.token,
-        //     reset_password_expires: {
-        //       $gt: Date.now()
-        //     }
-        //   }).exec(function(err, user) {
-        //     if (!err && user) {
-        //       if (req.body.newPassword === req.body.verifyPassword) {
-        //         user.hash_password = bcrypt.hashSync(req.body.newPassword, 10);
-        //         user.reset_password_token = undefined;
-        //         user.reset_password_expires = undefined;
-        //         user.save(function(err) {
-        //           if (err) {
-        //             return res.status(422).send({
-        //               message: err
-        //             });
-        //           } else {
-        //             var data = {
-        //               to: user.email,
-        //               from: email,
-        //               template: 'reset-password-email',
-        //               subject: 'Password Reset Confirmation',
-        //               context: {
-        //                 name: user.fullName.split(' ')[0]
-        //               }
-        //             };
-
-        //             smtpTransport.sendMail(data, function(err) {
-        //               if (!err) {
-        //                 return res.json({ message: 'Password reset' });
-        //               } else {
-        //                 return done(err);
-        //               }
-        //             });
-        //           }
-        //         });
-        //       } else {
-        //         return res.status(422).send({
-        //           message: 'Passwords do not match'
-        //         });
-        //       }
-        //     } else {
-        //       return res.status(400).send({
-        //         message: 'Password reset token is invalid or has expired.'
-        //       });
-        //     }
-        //   });
-        // };
     }
 
 

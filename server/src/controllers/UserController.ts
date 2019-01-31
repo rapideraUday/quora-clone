@@ -252,39 +252,32 @@ class UserController implements IBaseController<UserBusiness>{
                     ?
                     response.send(Utility.generateResponse(404, error, false, null))
                     :
-                    response.send(Utility.generateResponse(200, 'Loging out Sucessfully', true, result));
+                    response.send(Utility.generateResponse(200, 'Email Successfully sent for reset Password', true, result));
             })
 
         } catch (error) {
             response.send({ "Exception": error });
         }
     }
-
+    
     resetPassword(request: express.Request, response: express.Response): void {
         try {
-            const data = {
-                token: request.body.token.toString(),
-                date: Date.now()
-            }
+            const {newPassword, verifyPassword, token } = request.body;
             const userBusiness = new UserBusiness();
-            console.log("resetPassword",data);
-            
-            userBusiness.resetPassword(data, (error, result) => {
+            userBusiness.resetPassword(newPassword, verifyPassword, token, (error, result) => {
                 console.log(error);
                 
                 error
                     ?
                     response.send(Utility.generateResponse(404, error, false, null))
                     :
-                    response.send(Utility.generateResponse(200, 'Loging out Sucessfully', true, result));
+                    response.send(Utility.generateResponse(200, 'Succesfully Reset the password', true, result));
             })
 
         } catch (error) {
             response.send({ "Exception": error });
         }
     }
-
-
 
 }
 export = UserController;

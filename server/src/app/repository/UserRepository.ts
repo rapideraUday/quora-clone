@@ -36,6 +36,20 @@ class UserRepository extends RepositoryBase<IUserModel>{
             return callback(null, docs);
         })
     }
+
+    findResetPasswordToken(token: string, callback: (error: any, result: any) => void){
+        var query = UserSchema.findOne({
+            reset_password_token: token,
+            reset_password_expires: {
+              $gt: Date.now()
+            }
+          });
+          query.exec((err, docs) => {
+            if(err) return callback(err, null);
+            if(!docs || docs.length === 0) return callback('No record found', null);
+            return callback(null, docs);    
+        })
+    }
 }
 Object.seal(UserRepository);
 export = UserRepository;
