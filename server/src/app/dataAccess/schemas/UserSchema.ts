@@ -55,7 +55,11 @@ class UserSchema {
             },
             lastLogin: {
                 type: Date
-            }
+            },
+            isVerified: { 
+                type: Boolean, 
+                default: false 
+            },
         }, {timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt'}})
     }
 }

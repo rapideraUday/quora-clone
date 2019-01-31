@@ -267,5 +267,9 @@ class UserController implements IBaseController<UserBusiness>{
         }
     }
 
+    emailValidation(request: express.Request, response: express.Response):void{
+        
+    }
+
 }
 export = UserController;
