@@ -193,21 +193,6 @@ class UserBusiness implements IUserBusiness {
     }
 
     resetPassword(newPassword: string, verifyPassword: string, token: string, callback: (error: any, result: any) => void) {
-
-        // const smtpTransport = nodemailer.createTransport({
-        //     service: process.env.MAILER_SERVICE_PROVIDER || 'Gmail',
-        //     auth: {
-        //         user: MailerEmail,
-        //         pass: pass
-        //     }
-        // });
-        // const handlebarsOptions = {
-        //     viewEngine: 'handlebars',
-        //     viewPath: path.resolve('./src/templates'),
-        //     extName: '.html'
-        // };
-
-        // smtpTransport.use('compile', hbs(handlebarsOptions));
         this.smtpWithOptions();
         this._UserRepository.findResetPasswordToken(token, (err, user) => {
             if (err) return callback(err, null);
