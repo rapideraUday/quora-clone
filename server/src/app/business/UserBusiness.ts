@@ -18,11 +18,20 @@ interface Ihash {
 }
 
 class UserBusiness implements IUserBusiness {
-    saltLength: number = 10;
-
-
-
     private _UserRepository: UserRepository;
+    saltLength: number = 10;
+    smtpTransport = nodemailer.createTransport({
+        service: process.env.MAILER_SERVICE_PROVIDER || 'Gmail',
+        auth: {
+            user: MailerEmail,
+            pass: pass
+        }
+    });
+    handlebarsOptions = {
+        viewEngine: 'handlebars',
+        viewPath: path.resolve('./src/templates'),
+        extName: '.html'
+    };
 
     constructor() {
         this._UserRepository = new UserRepository();
@@ -122,22 +131,12 @@ class UserBusiness implements IUserBusiness {
         });
     }
 
+    smtpWithOptions(){
+        return this.smtpTransport.use('compile', hbs(this.handlebarsOptions));
+    }
+
     forgotPassword(email: string, callback: (error: any, result: any) => void) {
-        const smtpTransport = nodemailer.createTransport({
-            service: process.env.MAILER_SERVICE_PROVIDER || 'Gmail',
-            auth: {
-                user: MailerEmail,
-                pass: pass
-            }
-        });
-        const handlebarsOptions = {
-            viewEngine: 'handlebars',
-            viewPath: path.resolve('./src/templates'),
-            extName: '.html'
-        };
-
-        smtpTransport.use('compile', hbs(handlebarsOptions));
-
+        this.smtpWithOptions();
         async.waterfall([
             (done) => {
                 this._UserRepository.findOne({ email }, (err, user) => {
@@ -178,7 +177,7 @@ class UserBusiness implements IUserBusiness {
                     }
                 };
 
-                smtpTransport.sendMail(data, (err) => {
+                this.smtpTransport.sendMail(data, (err) => {
                     if (!err) {
                         return callback(null, 'Kindly check your email for further instructions');
                     } else {
@@ -195,21 +194,21 @@ class UserBusiness implements IUserBusiness {
 
     resetPassword(newPassword: string, verifyPassword: string, token: string, callback: (error: any, result: any) => void) {
 
-        const smtpTransport = nodemailer.createTransport({
-            service: process.env.MAILER_SERVICE_PROVIDER || 'Gmail',
-            auth: {
-                user: MailerEmail,
-                pass: pass
-            }
-        });
-        const handlebarsOptions = {
-            viewEngine: 'handlebars',
-            viewPath: path.resolve('./src/templates'),
-            extName: '.html'
-        };
+        // const smtpTransport = nodemailer.createTransport({
+        //     service: process.env.MAILER_SERVICE_PROVIDER || 'Gmail',
+        //     auth: {
+        //         user: MailerEmail,
+        //         pass: pass
+        //     }
+        // });
+        // const handlebarsOptions = {
+        //     viewEngine: 'handlebars',
+        //     viewPath: path.resolve('./src/templates'),
+        //     extName: '.html'
+        // };
 
-        smtpTransport.use('compile', hbs(handlebarsOptions));
-
+        // smtpTransport.use('compile', hbs(handlebarsOptions));
+        this.smtpWithOptions();
         this._UserRepository.findResetPasswordToken(token, (err, user) => {
             if (err) return callback(err, null);
             if (!err && user) {
@@ -231,7 +230,7 @@ class UserBusiness implements IUserBusiness {
                                 }
                             };
 
-                            smtpTransport.sendMail(data, (err) => {
+                            this.smtpTransport.sendMail(data, (err) => {
                                 if (!err) {
                                     return callback(null, 'Password Successfully reset. Kindly check your email for further instructions');
                                 } else {
