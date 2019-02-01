@@ -370,7 +370,6 @@ class UserController implements IBaseController<UserBusiness>{
         try {
             const userBusiness = new UserBusiness();
             const {verificationToken} = request.params;
-            debugger;
             userBusiness.sendConfirmation(verificationToken, (error, result) => {
                 error
                     ?
