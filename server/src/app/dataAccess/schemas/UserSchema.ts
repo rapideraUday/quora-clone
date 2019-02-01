@@ -5,10 +5,10 @@ import DataAccess = require('../DataAccess');
 import IUserModel = require('../../model/interfaces/UserModel');
 const esClient = require('../../../config/elasticsearch/connection')
 let Mongoose = mongoose.Schema;
-class UserSchema {
+// class UserSchema {
 
-    static get schema() {
-        return new Mongoose({
+    // static get schema() {
+        const UserSchema = new Mongoose({
             id: {
                 type: String,
                 required: false
@@ -68,23 +68,25 @@ class UserSchema {
                 default: false  
             }
         }, {timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt'}})
-    }
-}
+    // }
+// }
 
-UserSchema.schema.pre('save', function(next) {
-    console.log('Pre Save Called');
+UserSchema.pre('save', function(next) {
+    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Pre Save Called');
     
     // This middleware will prevent `save()` from executing and go straight
     // to executing the error handling middleware
     // next(new Error('pre save error'));
+    next();
 });
 
-UserSchema.schema.post('save', function(doc, next) {
+UserSchema.post('save', function(doc, next) {
     console.log('Post Save Called');
     // If this hook is defined _before_ an error handler middleware, this will
     // skip all other non-error-handler post save hooks and execute the next
     // error handler middleware
     // next(new Error('post save error'));
+    next();
 });
 
   
@@ -96,12 +98,12 @@ const handleE11000 = (error, res, next) =>  {
     }
 };
 
-UserSchema.schema.post('save', handleE11000);
-UserSchema.schema.post('update', handleE11000);
-UserSchema.schema.post('findOneAndUpdate', handleE11000);
-UserSchema.schema.post('insertMany', handleE11000);
+UserSchema.post('save', handleE11000);
+UserSchema.post('update', handleE11000);
+UserSchema.post('findOneAndUpdate', handleE11000);
+UserSchema.post('insertMany', handleE11000);
 
-let User = DataAccess.mongooseConnection.model<IUserModel>("User", UserSchema.schema.plugin(mongoosastic, {
+let User = DataAccess.mongooseConnection.model<IUserModel>("User", UserSchema.plugin(mongoosastic, {
     esClient: esClient
 })),
     stream = User.synchronize(),
