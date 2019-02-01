@@ -49,9 +49,9 @@ class UserBusiness implements IUserBusiness {
             (done) => {
                 this._UserRepository.findUserByEmail(email, (error, result) => {
                     if (result) {
-                        if (!result.isVerified) {
-                            return done('Your account has not been verified', null)
-                        }
+                        // if (!result.isVerified) {
+                        //     return done('Your account has not been verified', null)
+                        // }
                         const userPassword: Ihash = this.hashPasswordWithSalt(password, result.salt);
                         if (result.password === userPassword.password) {
                             const payload = { _id: result._id };
@@ -289,6 +289,30 @@ class UserBusiness implements IUserBusiness {
             }
 
 
+        })
+    }
+
+    changePassword(email: string, oldPassword: string, newPassword: string, callback: (error: any, result: any) => void) {
+        this._UserRepository.findOne({email}, (err, user) => {
+            if (!user) return callback('We were unable to find a user with that email', null);
+            if(err) return callback(err, null);
+            // console.log("User Found ", user);
+            const hashOldPassword: Ihash = this.hashPasswordWithSalt(oldPassword, user.salt);
+            const hashnewPassword = this.saltHashPassword(newPassword);
+            console.log("user.password", user.password);
+            console.log("user.salt", user.salt);
+            console.log("hashOldPassword",hashOldPassword);
+            console.log("hashnewPassword",hashnewPassword);
+            if(hashOldPassword.password === user.password){
+                user.password = hashnewPassword.password;
+                user.salt = hashnewPassword.salt;
+                user.save((err) => {
+                    if(err) return callback('Error while updating records', null);
+                    
+                    return callback(null, 'Successfully Updated the password')
+                })
+            }
+            
         })
     }
 }

@@ -45,10 +45,10 @@ class UserController implements IBaseController<UserBusiness>{
                 if (error) {
                     response.status(500).send(Utility.generateResponse(404, error, false, null))
                 }
-                if(result){
+                if (result) {
                     result.verificationToken = crypto.randomBytes(16).toString('hex');
-                    User.findByIdAndUpdate(result._id,{$set:result}, function(err, result){
-                        if(err){
+                    User.findByIdAndUpdate(result._id, { $set: result }, function (err, result) {
+                        if (err) {
                             console.log(err);
                         }
                         console.log("RESULT: " + result);
@@ -68,13 +68,14 @@ class UserController implements IBaseController<UserBusiness>{
                             pass: MailerPassword
                         }
                     });
-                    console.log(this);
-                    smtpTransport.sendMail(mailOptions, (err) => {
-                        if (err) {
-                            response.status(500).send(Utility.generateResponse(404, 'Not able send Verification email', false, null))
-                        }
-                        response.status(200).send(Utility.generateResponse(200, `A verification email has been sent to ${user.email}.`, true, result));
-                    });
+                    // smtpTransport.sendMail(mailOptions, (err) => {
+                    //     if (err) {
+                    //         response.status(500).send(Utility.generateResponse(404, 'Not able send Verification email', false, null))
+                    //     }
+                    //     response.status(200).send(Utility.generateResponse(200, `A verification email has been sent to ${user.email}.`, true, result));
+                    // });
+
+                    response.status(200).send(Utility.generateResponse(200, `A verification email has been sent to ${user.email}.`, true, result));
                 }
             })
         } catch (error) {
@@ -121,7 +122,7 @@ class UserController implements IBaseController<UserBusiness>{
                     ?
                     response.send(Utility.generateResponse(404, error, false, null))
                     :
-                    response.send(Utility.generateResponse(200, 'Loging out Sucessfully', true, result));
+                    response.send(Utility.generateResponse(200, 'Loging out Sucessfully', true, null));
             })
 
         } catch (error) {
@@ -369,7 +370,7 @@ class UserController implements IBaseController<UserBusiness>{
     sendConfirmation(request: express.Request, response: express.Response): void {
         try {
             const userBusiness = new UserBusiness();
-            const {verificationToken} = request.params;
+            const { verificationToken } = request.params;
             userBusiness.sendConfirmation(verificationToken, (error, result) => {
                 error
                     ?
@@ -389,12 +390,12 @@ class UserController implements IBaseController<UserBusiness>{
      */
     resendConfirmation(request: express.Request, response: express.Response): void {
         try {
-            const {email} = request.body.email;
+            const { email } = request.body.email;
             const userBusiness = new UserBusiness();
             userBusiness.resendConfirmation(email, function (error, result) {
-                if(error) {
+                if (error) {
                     response.send(Utility.generateResponse(404, error, false, null))
-                }else{
+                } else {
                     const mailOptions = {
                         from: MailerEmail,
                         to: result.email,
@@ -417,13 +418,30 @@ class UserController implements IBaseController<UserBusiness>{
                         // res.status(200).send('A verification email has been sent to ' + user.email + '.');
                         response.status(200).send(Utility.generateResponse(200, `A verification email has been sent to ${result.email}.`, true, result));
                     });
-                } 
+                }
             })
 
         } catch (error) {
-
+            response.status(500).send(Utility.generateResponse(500, error, false, null))
         }
     }
+
+    changePassword(request: express.Request, response: express.Response){
+        
+        try {
+            const { email, oldPassword, newPassword } = request.body;
+            const userBusiness = new UserBusiness();
+            userBusiness.changePassword(email, oldPassword, newPassword, (error, result) => {
+                if(error) response.status(500).send(Utility.generateResponse(500, error, false, null)) 
+                
+                response.status(200).send(Utility.generateResponse(200, `change password`, true, result));
+            })
+
+        } catch (error) {
+            response.status(500).send(Utility.generateResponse(500, error, false, null))
+        }
+    }
+    
 
 }
 export = UserController;

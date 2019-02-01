@@ -48,6 +48,8 @@ class UserRoutes {
         router.get('/confirmation/:verificationToken', controller.sendConfirmation)
         router.post('/resend', controller.resendConfirmation)
 
+        router.post('/auth/change-password', controller.changePassword)
+
 
 
         return router;
